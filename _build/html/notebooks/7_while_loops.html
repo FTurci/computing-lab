@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>7 ‘while’ statements &#8212; Computing Lab</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8 Random numbers" href="8_Random_numbers.html" />
+    <link rel="prev" title="6 Controlling programme execution - the ‘if’ statement" href="6_branching.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Computing Lab</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../landing-page.html">
+                    ComputingLab
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_IntroToNotebooks.html">
+   1. An Introduction to Python and Jupyter notebooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_variables_and_methods.html">
+   2. Python - Variables, objects and methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_functions_and_loops.html">
+   3 Functions and loops with numerical integration as an example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation-original.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_branching.html">
+   6 Controlling programme execution - the ‘if’ statement
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   7 ‘while’ statements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_Random_numbers.html">
+   8 Random numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_theNumpyLibrary.html">
+   9. Introduction to the Numpy library.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_inputoutput.html">
+   10. Input and output of data from python programmes.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Boltzmann-description.html">
+   PHYS10008 - extended assignment
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/7_while_loops.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/7_while_loops.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-while-statement">
+   7.1 The ‘while’ statement
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#while-statements-and-infinite-loops">
+     7.1.1 while statements and infinite loops
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-use-while-statements">
+     7.1.2 why use while statements?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-do-i-code-a-repeat-until-structure">
+     7.1.3 how do I code a ‘repeat … until’ structure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-break-statement">
+     7.1.4 the
+     <em>
+      break
+     </em>
+     statement
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   7.2 Summary
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>7 ‘while’ statements</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-while-statement">
+   7.1 The ‘while’ statement
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#while-statements-and-infinite-loops">
+     7.1.1 while statements and infinite loops
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-use-while-statements">
+     7.1.2 why use while statements?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-do-i-code-a-repeat-until-structure">
+     7.1.3 how do I code a ‘repeat … until’ structure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-break-statement">
+     7.1.4 the
+     <em>
+      break
+     </em>
+     statement
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   7.2 Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="while-statements">
+<h1>7 ‘while’ statements<a class="headerlink" href="#while-statements" title="Permalink to this headline">#</a></h1>
+<p>In the previous notebook you have seen how boolean statements with the <em>if</em> statement can be used to allow branching according to different conditions being met in the programme. Once the condition has been met the programme executes the appropriate code and moves on. In many coding situations you find you wish to repeatedly test a condition and execute the same code until the condition has been met.</p>
+<p>In this notebook you will learn how to:</p>
+<ul class="simple">
+<li><p>use while statements to execute loops until a condition, as defined by a boolean statement, is met,</p></li>
+<li><p>use the <em>while</em> loop to do a simple <em>sin</em> series summation,</p></li>
+<li><p>use the a <em>break</em> to terminate a loop, especially in the form of a ‘repeat … until’ type structure.</p></li>
+</ul>
+<section id="the-while-statement">
+<h2>7.1 The ‘while’ statement<a class="headerlink" href="#the-while-statement" title="Permalink to this headline">#</a></h2>
+<section id="while-statements-and-infinite-loops">
+<h3>7.1.1 while statements and infinite loops<a class="headerlink" href="#while-statements-and-infinite-loops" title="Permalink to this headline">#</a></h3>
+<p>A <em>while</em> loop takes the form</p>
+<p>while <em>boolean expression</em> :<br>
+…<em>indented code</em></p>
+<p>If the boolean expression is False the programme will skip the indented code after the <em>while</em> statement and continue execution of the programme. If the boolean expression is True, the indented code is executed and when the indented block is completed the programme returns to the <em>while</em> statement and follows the same procedure.</p>
+<p><strong>VERY IMPORTANT.</strong> From this description you can see that, unless, as result of executing the code in the loop, we reach a condition when the boolean statement is false, then the loop will continue executing endlessly!. The only way you can stop the programme from running is to interrupt the kernel (or &lt; CTRL C&gt; if you are using for example anaconda or Idle).</p>
+<p>Here is a trivial example of an infinite loop. Before you run the code(!) note how the prompt becomes <em>In [*]</em>. The * shows the code is still executing. You can interrupt the kernel by using the ‘Kernel’ tab on the menu at the top of the notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="kc">True</span>
+<span class="k">while</span> <span class="n">a</span> <span class="p">:</span>
+  <span class="n">b</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;end of programme&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">lt</span><span class="o">/</span><span class="n">p1n6bb0j4_173x9548b473jh0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_15349</span><span class="o">/</span><span class="mf">1229866389.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">a</span><span class="o">=</span><span class="kc">True</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="k">while</span> <span class="n">a</span> <span class="p">:</span>
+<span class="ne">----&gt; </span><span class="mi">3</span>   <span class="n">b</span><span class="o">=</span><span class="mi">1</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;end of programme&quot;</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<p>At least the ‘keyboard interrupt’ shows you where you were in the code when it was stopped.</p>
+<p>Now we are aware of this pitfall let’s see a simple example of a <em>while</em> loop in practise. (To avoid getting into the loop on restarting this notebook you may wish to change the code above to start with <em>a=False</em> !). Look at carefully at and run the code below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span><span class="o">=</span><span class="mi">10</span>                         <span class="c1"># Calculate factorial of i</span>
+<span class="n">fact</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">fact</span> <span class="o">=</span> <span class="n">fact</span><span class="o">*</span><span class="n">i</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span>
+    
+<span class="nb">print</span> <span class="p">(</span><span class="n">fact</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have already seen how we could calculate a factorial using a for loop (which is preferable) but let’s see how this version works.</p>
+<p>Firstly, we are going to set the number for factorial calculation in <em>i</em>. We have also set our starting value for the factorial outside the loop. We can see already that the loop will execute at least once as <em>i</em> is greater that zero. Note also why we need to set an initial value of 1 for fact. The important point here is that we are changing the value of <em>i</em> in the loop. If we don’t then we guarantee we get an infinite loop! We also note that at some point we will get to the point where <em>i</em> becomes less than or equal to zero so that the loop finishes. It might take sometime to execute if <em>i</em> was very large but it will terminate at some point.</p>
+</section>
+<section id="why-use-while-statements">
+<h3>7.1.2 why use while statements?<a class="headerlink" href="#why-use-while-statements" title="Permalink to this headline">#</a></h3>
+<p>As we noted above, we could most easily have written our factorial calculation above using a <em>for</em> loop. The key is that before we execute a <em>for</em> loop we know or can calculate the precise number of steps needed.</p>
+<p>However, in many cases we may not know <em>a priori</em> the number of times we wish to execute the loop. Let’s take for example the calculation of the sine of a number using the series expansion</p>
+<p><span class="math notranslate nohighlight">\(\sin(x) \simeq x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+ ...\)</span></p>
+<p>We might guess that for very small <span class="math notranslate nohighlight">\(x\)</span> we hardly need to go beyond the first term, whereas, for larger <span class="math notranslate nohighlight">\(x\)</span> we may need to include many more terms in the series. One way of deciding when to stop the series would be when the size of the last term added reaches a pre-determined and small value (the is not the best way but gives an idea of the principle). We will use this idea in the code fragment below. Look at and read the code below carefully. There are a large number of comments to help you.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">fact</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>                 <span class="c1"># we need to calculate factorials so let&#39;s define a function as an example</span>
+    <span class="n">ans</span> <span class="o">=</span><span class="mi">1</span>                   <span class="c1"># if you look you might find a function to calculate factorials in the libraries we have already used. </span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">ans</span><span class="o">=</span><span class="n">ans</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+
+<span class="n">dangle</span> <span class="o">=</span> <span class="mi">10</span>                  <span class="c1"># enter angle in degrees</span>
+<span class="n">angle</span> <span class="o">=</span> <span class="n">dangle</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="p">(</span><span class="mf">360.</span><span class="p">)</span>   <span class="c1"># now convert to radians (again you might find function in python to do this for you)</span>
+
+<span class="n">tolerance</span> <span class="o">=</span> <span class="mf">0.0001</span>           <span class="c1"># set the limit for the size of new term below which will terminate the series</span>
+<span class="n">newterm</span> <span class="o">=</span> <span class="mi">1</span>                  <span class="c1"># this doesn&#39;t really matter as long as it is &gt; tolerance (to ensure the loop executes at least once)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">angle</span>                    <span class="c1"># we know the first term in the series is the angle in radians</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">3</span>                        <span class="c1"># we have the first term in term in the series (i=1) so we&#39;ll start with i=3</span>
+<span class="n">j</span><span class="o">=-</span><span class="mi">1</span>                         <span class="c1"># our terms alternate in sign starting negative for i=3. </span>
+<span class="n">nterms</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">while</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">newterm</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">tolerance</span><span class="p">):</span>      <span class="c1"># we have made sure the loop executes at least once. NB we need the absolute value of newterm.</span>
+    <span class="n">newterm</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="n">i</span><span class="o">/</span><span class="n">fact</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">j</span>           <span class="c1"># calculate he next term NB. j is the sign. When newterm is &lt; tolerance stop the loop. </span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="n">newterm</span>                      <span class="c1"># add the new term to our approximation</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span>                          <span class="c1"># we don&#39;t have any even terms so increment i by 2</span>
+    <span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="o">*-</span><span class="mi">1</span>                             <span class="c1"># changes the sign for the next term</span>
+    <span class="n">nterms</span> <span class="o">=</span> <span class="n">nterms</span> <span class="o">+</span> <span class="mi">1</span>                <span class="c1"># keeps a record of the number of terms we&#39;ve included.</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sin(&quot;</span><span class="p">,</span><span class="n">dangle</span><span class="p">,</span><span class="s2">&quot;) is approximately&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nterms</span><span class="p">,</span><span class="s2">&quot; terms in the series were used&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sin(&quot;</span><span class="p">,</span><span class="n">dangle</span><span class="p">,</span><span class="s2">&quot;) is &quot;</span><span class="p">,</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note the programme always uses at least the first two terms in the series (the loop executes at least once). The value in the variable ‘tolerance’ controls when we will exit the loop. The smaller it is the more terms will be included. You might try changing its value (but whatever you do don’t make it negative - why?). Also check to see as you make the angle larger that more terms are included.</p>
+<p>I have included my own function for calculating factorials. See if you can find the python function in the math packages to do the same. This is not the only way in which you might do the calculation - feel free to experiment!</p>
+</section>
+<section id="how-do-i-code-a-repeat-until-structure">
+<h3>7.1.3 how do I code a ‘repeat … until’ structure<a class="headerlink" href="#how-do-i-code-a-repeat-until-structure" title="Permalink to this headline">#</a></h3>
+<p>In some languages and books on programming you may see reference to a <em>repeat … until</em> loop. Python does not have a direct implementation. So what is a <em>repeat … until</em> loop? As we noted our while loop will not execute at all if the boolean expression is false when the while statement is first called. A <em>repeat … until</em> loop executes the loop at least once and tests  at the end of the loop. As we have seen in the example above this can be achieved with a while loop by forcing the condition to be true at the entry point to the while loop.</p>
+<p>An alternative way to do this is as follows</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">while</span> <span class="kc">True</span> <span class="p">:</span>
+   <span class="n">i</span> <span class="o">=</span><span class="n">i</span> <span class="o">-</span><span class="mi">1</span>
+   <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;the condition i == 0 has been met&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see the condition (i == 0) here is tested at the end of the loop if the condition is met then <em>break</em> means exit the loop immediately and proceed with the code following.</p>
+</section>
+<section id="the-break-statement">
+<h3>7.1.4 the <em>break</em> statement<a class="headerlink" href="#the-break-statement" title="Permalink to this headline">#</a></h3>
+<p><em>break</em> may actually be used at any position in a <em>while</em> or <em>for</em> loop. However, you should think very carefully about how you use it and what the implications are for the code following when you break from a partially completed loop.</p>
+</section>
+</section>
+<section id="summary">
+<h2>7.2 Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>In this notebook you have learnt how to:</p>
+<ul class="simple">
+<li><p>use a <em>while</em> statement to repeatedly execute a fragment of code until a boolean condition is met,</p></li>
+<li><p>anticipate and avoid infintite loops when using <em>while</em> statements,</p></li>
+<li><p>learn how to break out of for or <em>while</em> loop,</p></li>
+<li><p>shown how a <em>while</em> loop may be used to sum a sine series to a pre-set tolerance.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="6_branching.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">6 Controlling programme execution - the ‘if’ statement</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="8_Random_numbers.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">8 Random numbers</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Adrian Barnes and Francesco Turci<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,838 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Coupled Oscillators - a worked example of the Eigenvalue and Eigenvector analysis. &#8212; Computing Lab</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Computing Lab</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../landing-page.html">
+                    ComputingLab
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_IntroToNotebooks.html">
+   1. An Introduction to Python and Jupyter notebooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_variables_and_methods.html">
+   2. Python - Variables, objects and methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_functions_and_loops.html">
+   3 Functions and loops with numerical integration as an example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation-original.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_branching.html">
+   6 Controlling programme execution - the ‘if’ statement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_while_loops.html">
+   7 ‘while’ statements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_Random_numbers.html">
+   8 Random numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_theNumpyLibrary.html">
+   9. Introduction to the Numpy library.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_inputoutput.html">
+   10. Input and output of data from python programmes.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Boltzmann-description.html">
+   PHYS10008 - extended assignment
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/Coupled Oscillations - pt1.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/Coupled Oscillations - pt1.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-1-the-formulation-of-the-coupled-oscillator-equations">
+   Step 1 - The formulation of the coupled oscillator equations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-2-the-trial-solution">
+   Step 2 - The trial solution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-3-finding-the-eigenvalues-and-eigenvectors">
+   Step 3  - Finding the Eigenvalues and Eigenvectors.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise">
+   Exercise
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#beyond-2-x-2-problems">
+   Beyond 2 x 2 problems
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-happens-when-we-remove-the-walls">
+   What happens when we remove the walls?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion-for-this-notebook">
+   Conclusion for this notebook
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Coupled Oscillators - a worked example of the Eigenvalue and Eigenvector analysis.</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-1-the-formulation-of-the-coupled-oscillator-equations">
+   Step 1 - The formulation of the coupled oscillator equations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-2-the-trial-solution">
+   Step 2 - The trial solution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-3-finding-the-eigenvalues-and-eigenvectors">
+   Step 3  - Finding the Eigenvalues and Eigenvectors.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise">
+   Exercise
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#beyond-2-x-2-problems">
+   Beyond 2 x 2 problems
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-happens-when-we-remove-the-walls">
+   What happens when we remove the walls?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion-for-this-notebook">
+   Conclusion for this notebook
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="coupled-oscillators-a-worked-example-of-the-eigenvalue-and-eigenvector-analysis">
+<h1>Coupled Oscillators - a worked example of the Eigenvalue and Eigenvector analysis.<a class="headerlink" href="#coupled-oscillators-a-worked-example-of-the-eigenvalue-and-eigenvector-analysis" title="Permalink to this headline">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>In mathematics part of PHYS10008 you have considered the case of coupled oscillators as an example of finding eigenvectors and eigenvalues. As you will have realised from the lectures, the full solution to these problems often entails tedious matrix calculations (finding determinants etc.) that are very prone to simple errors in calculation. In practise computers are very good at handling these linear algebra problems. The idea of this work book is that you should begin to appreciate the physics of the solutions to these problem and what they mean, without getting bogged down in calculation. This said, you should make sure that you are able to solve eigenvalue/eigenvector problems for simple 2 or 3 particle coupled systems.</p>
+<p>Before we move on let’s consider the general scheme for approaching these problems.</p>
+<p>In 1 dimension a coupled oscillator system  we typically consider a series of masses that are connected together by springs. Two different types of end condition are considered: one where the masses at the end are free and one where they are connected to a rigid wall (infinite mass) with a final spring. We will consider both.  Note, questions will almost always state that you should consider small oscillations, in which case you can assume the potential will be parabolic (i.e. <span class="math notranslate nohighlight">\(\propto x^2\)</span>.)  You should be able to demonstrate this by considering a Taylor expansion for any sensible ‘bowl’ like potential. Typical examples of coupled oscillator systems include springs, coupled pendulums, coupled LCR circuits or even the interatomic potentials between atoms - in the end the maths is the same.</p>
+<p>For our typical mechanics questions it is the solution for the position of the masses as a function of time that we seek.(In coupled LCR circuits charge is the oscillating quantity and the inductance <span class="math notranslate nohighlight">\(L\)</span> and capacitance <span class="math notranslate nohighlight">\(C\)</span> take the place of the mass and spring respectively. <span class="math notranslate nohighlight">\(R\)</span> gives rise to damping in the system).</p>
+<p>We will first concentrate on the steps needed to solve the problem using the example given the maths lectures.</p>
+</section>
+<section id="step-1-the-formulation-of-the-coupled-oscillator-equations">
+<h2>Step 1 - The formulation of the coupled oscillator equations<a class="headerlink" href="#step-1-the-formulation-of-the-coupled-oscillator-equations" title="Permalink to this headline">#</a></h2>
+<p>In order to solve this problem we need to apply Newtons second law of motion to each of the masses in turn. We should remember that we will specify the coordinate of each mass <span class="math notranslate nohighlight">\(m_1\)</span>, <span class="math notranslate nohighlight">\(m_2\)</span> in terms of their coordinates <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> that are defined as zero when the masses are in their equilibrium positions. Hence we should obtain,</p>
+<p>\begin{equation}
+m_1 \ddot x_1 = -k_1x_1+k_2(x_2-x_1) \
+m_2 \ddot x_2 = -k_3x_2+k_2(x_1 -x_2)
+\end{equation}</p>
+<p>The trickiest part here is getting the signs correct. For the coupling terms (for example the term including <span class="math notranslate nohighlight">\(k_2\)</span>) setting either <span class="math notranslate nohighlight">\(x_1=0\)</span> or <span class="math notranslate nohighlight">\(x_2 = 0\)</span> is often sufficient to check the signs are correct. You should also note by Newton’s third law that the force acting between the masses should be equal and opposite for each one. We can write these equations in matrix form as:</p>
+<p>\begin{equation}
+\left [ \begin{array}{cc} m_1 &amp; 0 \ 0 &amp; m_2 \end{array} \right ]
+\left [ \begin{array}{c} \ddot x_1 \ \ddot x_2 \end{array} \right ]=
+\left [ \begin{array}{cc} -(k_1+k_2) &amp; k_2 \ k_2 &amp; -(k_2 +k_3) \end{array} \right ]
+\left [ \begin{array}{c} x_1 \ x_2 \end{array} \right ]
+\end{equation}</p>
+<p>This is the equation we need to solve.</p>
+<p>At this stage, we will confine ourself to the case <span class="math notranslate nohighlight">\(m_1 = m_2= m \)</span>. We’ll come back to what this means and how we deal with the case <span class="math notranslate nohighlight">\(m_1 \neq m_2\)</span> later. In this case we get,</p>
+<p>\begin{equation}
+\left [ \begin{array}{c} \ddot x_1 \ \ddot x_2 \end{array} \right ]=\frac{1}{m}
+\left [ \begin{array}{cc} -(k_1+k_2) &amp; k_2 \ k_2 &amp; -(k_2 +k_3) \end{array} \right ]
+\left [ \begin{array}{c} x_1 \ x_2 \end{array} \right ]
+\end{equation}.</p>
+<p>As an example let’s choose <span class="math notranslate nohighlight">\(k_2 = 2k_1=2k_3=2k\)</span> (you can change them later in this work sheet if you wish to experiment with different values). In this case we have the equation,</p>
+<p>\begin{equation}
+\left [ \begin{array}{c} \ddot x_1 \ \ddot x_2 \end{array} \right ]=-\frac{k}{m}
+\left [ \begin{array}{cc} 3 &amp; -2 \ -2 &amp; 3 \end{array} \right ]
+\left [ \begin{array}{c} x_1 \ x_2 \end{array} \right ] \space\space … (1)
+\end{equation}.</p>
+<p>Note that, provided all the masses are equal this matrix is real and symmetric.</p>
+</section>
+<section id="step-2-the-trial-solution">
+<h2>Step 2 - The trial solution<a class="headerlink" href="#step-2-the-trial-solution" title="Permalink to this headline">#</a></h2>
+<p>Formally we need to solve these coupled differential equations. However, the solutions are well known and closely related to the (uncoupled) simple harmonic oscillator equation where trial solutions of the form <span class="math notranslate nohighlight">\(x=C\exp(i\omega t)\)</span> are used. In a similar way we will choose a trial solution for this problem of the form,</p>
+<p>\begin{equation}
+\left[ \begin{array}{c} x_1 \x_2 \end{array} \right] = \left[ \begin{array}{c} C_1 \C_2 \end{array} \right] \exp(i\omega t) \space\space … (2)
+\end{equation}</p>
+<p>There are a few points to note.</p>
+<p>We are no longer imagining the individual masses as moving with simple harmonic motion but we asscociate the oscillatory motion with a vector <span class="math notranslate nohighlight">\(\vec x = \vec x_0 \exp(i\omega t) = (C_1\hat x_1+C_2 \hat x_2)\exp(i\omega t)\)</span> where <span class="math notranslate nohighlight">\(\hat x_1\)</span> and <span class="math notranslate nohighlight">\(\hat x_2\)</span> are unit vectors in our vector space. The idea of the vector space can be a difficult concept to understand especially when you realise that for <span class="math notranslate nohighlight">\(N\)</span> masses we have an <span class="math notranslate nohighlight">\(N\)</span> dimensional vector space (and <span class="math notranslate nohighlight">\(N\)</span> may be considerably larger than 3!).</p>
+<p>We will also see that we are not looking for a single frequency but <span class="math notranslate nohighlight">\(N\)</span> different frequencies (although they may be degenerate, i.e. two independent solutions have the same frequency.)</p>
+<p>Hence, using the trial solution (2) and subsituting into (1) we find</p>
+<p>\begin{equation}
+\omega^2 \left [ \begin{array}{c} C_1 \ C_2 \end{array} \right ]=-\frac{k}{m}
+\left [ \begin{array}{cc} 3 &amp; -2 \ -2 &amp; 3 \end{array} \right ]
+\left [ \begin{array}{c} C_1 \ C_2 \end{array} \right ] \space\space … (3)
+\end{equation}.</p>
+<p>As we know <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(m\)</span> we need to solve this equation to find the values of <span class="math notranslate nohighlight">\(\omega\)</span> and <span class="math notranslate nohighlight">\(\left [ \begin{array}{c} C_1 \\ C_2 \end{array} \right ]\)</span>.</p>
+<p>At this point we may also note that if we multiply both sides of this equation by an arbitary constant, we will not find unique values for <span class="math notranslate nohighlight">\(C_1\)</span> or <span class="math notranslate nohighlight">\(C_2\)</span> although the ratio between them must always be the same. Ultimately the value of these constants is determined when we substitute the initial conditions into our general solution. We can re-arrange (3) and introduce the unit matrix to show,</p>
+<p>\begin{equation}
+\left (-\frac{k}{m}
+\left [ \begin{array}{cc} 3 &amp; -2 \ -2 &amp; 3 \end{array} \right ]
+-\omega^2 \left[ \begin{array}{cc} 1 &amp; 0 \ 0 &amp; 1 \end{array} \right]\right )
+\left [ \begin{array}{c} C_1 \ C_2 \end{array} \right ] = 0\space\space … (4)
+\end{equation}.</p>
+<p>that we see is in the form</p>
+<p>\begin{equation}
+\left (A-\lambda I\right) \vec v=0
+\end{equation}</p>
+<p>for which, you have seen from lectures, the solutions <span class="math notranslate nohighlight">\(\lambda\)</span> and <span class="math notranslate nohighlight">\(\vec v\)</span> are the eigenvalues and eigenvectors of this equation.</p>
+</section>
+<section id="step-3-finding-the-eigenvalues-and-eigenvectors">
+<h2>Step 3  - Finding the Eigenvalues and Eigenvectors.<a class="headerlink" href="#step-3-finding-the-eigenvalues-and-eigenvectors" title="Permalink to this headline">#</a></h2>
+<p>We may find, either the Eigenvalues in terms of <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(m\)</span> (or sometimes we might write <span class="math notranslate nohighlight">\(\sqrt \frac{k}{m} =\omega_0^2\)</span>) or we can enter their values. You should make sure that you can do this yourself for <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrices (where you will need to solve a quadratic equation to find the eigenvalues. It is also possible to find analytic (closed form) solutions for <span class="math notranslate nohighlight">\(3 \times 3\)</span> and <span class="math notranslate nohighlight">\(4 \times 4\)</span> problems but the solutions are difficult to remember and apply, so in this course you will only be asked to solve <span class="math notranslate nohighlight">\(2 \times 2\)</span> problems or <span class="math notranslate nohighlight">\(3 \times 3\)</span> problems ‘by hand’ where it is straightforward to determine the roots of the cubic equation you obtain. In general you cannot find analytic solutions for <span class="math notranslate nohighlight">\(N \ge 5\)</span> although solutions do exist for special cases.</p>
+<p>In this sheet we will use Python and the Linear Algebra package available with it, to determine the eigenvalues and eigenvectors for this problem. You will then see how easy, in python, it is to extend the analysis for examples with <span class="math notranslate nohighlight">\(N\)</span> considerably greater than 4.  For convenience I will set <span class="math notranslate nohighlight">\(\sqrt\frac{k}{m} = 1\)</span> but you should be able to modify the python code to take into account different values of <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(m\)</span> if you wish</p>
+<p>Hence, we now wish to find the eigenvalues and eigenvectors of the matrix,</p>
+<p>\begin{equation}
+\left[ \begin{array}{cc} 3 &amp; -2 \ -2 &amp; 3 \end{array} \right]
+\end{equation}</p>
+<p>Here is the code we need to do the calculation. By now you are familiar with how to set up (or read from file) numpy arrays in python. In this problem we could use the eigenvector/eigenvalue functions in numpy to do the calculation. However, these are more limited so I have used the functions from the scipy library that are more comprehensive (they can deal with generalised eigenvector problems).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The first part imports the linear algebra library so it recognises the function needed to calculate the eigenvalues and vectors</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">NP</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">LA</span>
+<span class="c1">###</span>
+<span class="c1">### Now we&#39;ll enter the array (you could read this from a file if you wish)</span>
+<span class="c1">###</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">NP</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">e_vals</span><span class="p">,</span><span class="n">e_vecs</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvalues&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vals</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvectors&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vecs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 3 -2]
+ [-2  3]]
+Eigenvalues
+[5.+0.j 1.+0.j]
+Eigenvectors
+[[ 0.70710678  0.70710678]
+ [-0.70710678  0.70710678]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you have seen, the python language is not the easiest language to use when creating and manipluating matrices but hopefully you can see how this works. Also note that the eigenvalues are returned as complex numbers with the imaginary part as zero as we expect.</p>
+<p>From the result we see from this case  we have two eigenvalues. <span class="math notranslate nohighlight">\(\omega^2 =5\)</span> and <span class="math notranslate nohighlight">\(\omega^2 =1\)</span>. You may wish to increase or decrease the strength of the spring in the middle to see the effect on the eigenvalues.</p>
+<p>The eigenvectors are returned as a matrix of normalised column vectors so the first eigenvector is <span class="math notranslate nohighlight">\(\left [\begin{array}{c} \frac{1}{\sqrt{2}} \\-\frac{1}{\sqrt{2}} \end{array}\right ]\)</span> and the second eigenvector is <span class="math notranslate nohighlight">\(\left [\begin{array}{c} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{array}\right ]\)</span>.</p>
+<p>Hence, we’d expect our general solution to be a linear cominbation of these two modes i.e.</p>
+<p>\begin{equation}
+\left[ \begin{array}{c} \ddot x_1 \ \ddot x_2 \end{array}\right]=
+A\left [\begin{array}{c} \frac{1}{\sqrt{2}} -\frac{1}{\sqrt{2}} \end{array}\right ]\exp(i(5t))+
+B\left [\begin{array}{c} \frac{1}{\sqrt{2}} \frac{1}{\sqrt{2}} \end{array}\right ]\exp(i(1t))
+\end{equation}</p>
+<p>where <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are constants to be determined from the initial conditions.</p>
+</section>
+<section id="exercise">
+<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">#</a></h2>
+<p>The python code from the example above is copied below. Go back to Step 1 above and find the matrix when you enter different values of <span class="math notranslate nohighlight">\(k_1\)</span>, <span class="math notranslate nohighlight">\(k_2\)</span> and <span class="math notranslate nohighlight">\(k_3\)</span>. Use the code to calculate the eigenvalues and eigenvectors and try to understand how the nature of the coupled oscillations has changed. Look in particular when <span class="math notranslate nohighlight">\(k_1 \neq k_2 \neq k_3\)</span> for example, <span class="math notranslate nohighlight">\(k_1 = 1, k_2=2, k_3 =3\)</span>. Try to interpret physically what is going on.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The first part imports the linear algebra library so it recognises the function needed to calculate the eigenvalues and vectors</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">NP</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">LA</span>
+<span class="c1">###</span>
+<span class="c1">### Enter values into the array below for the equations of motion you have determined.</span>
+<span class="c1">###</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">NP</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">]])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">e_vals</span><span class="p">,</span><span class="n">e_vecs</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvalues&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vals</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvectors&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vecs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 3 -2]
+ [-2  5]]
+Eigenvalues
+[1.76393202+0.j 6.23606798+0.j]
+Eigenvectors
+[[-0.85065081  0.52573111]
+ [-0.52573111 -0.85065081]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="beyond-2-x-2-problems">
+<h2>Beyond 2 x 2 problems<a class="headerlink" href="#beyond-2-x-2-problems" title="Permalink to this headline">#</a></h2>
+<p>Beyond <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrices it becomes timeconsuming and tedious to calculate eigenvalues and eigenvectors. However, the techniques for calculating them using computers are well established using ‘Linear Algebra’ packages such as those available in numpy and scipy. The code above using python is one example but you can also find libraries for e.g. fortran, C/C++, for computational software packages such as Matlab, Scilab and symbolic algebra packages such as Maple, Mathematica (Wolfram Alpha) and macsyma. Here we give an example of a more complex problem using python.</p>
+<p>A note of caution. These programmes do not always return what you expect. I have found this an issue especially, in symbolic algebra systems such as Maple or Mathematica, for the case where we have degenerate eigenvalues (two eigenvalues that have the same value) and their associated eigenvectors.</p>
+<p>Let’s extend our code to image a coupled spring system consistenting of 11 equal masses <span class="math notranslate nohighlight">\(m\)</span> and 12 springs, all with spring constant <span class="math notranslate nohighlight">\(k\)</span>. Demonstrate that you can obtain the equation</p>
+<p>\begin{equation}
+\left [ \begin{array}{c} \ddot x_1 \ \ddot x_2 \ \ddot x_3 \ \ddot x_4 \ \ddot x_5 \ \ddot x_6
+\ \ddot x_7 \ \ddot x_8 \ \ddot x_9 \ \ddot x_{10} \ \ddot x_{11} \end{array} \right ] =\frac{k}{m} \left [ \begin{array}{ccccccccccc}
+2 &amp; -1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0&amp; 0 &amp; 0\
+-1 &amp; 2 &amp; -1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0&amp; 0 &amp; 0\
+0 &amp; -1  &amp; -2  &amp; -1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0&amp; 0 &amp; 0\
+0 &amp; 0 &amp; -1 &amp; 2 &amp; -1 &amp; 0 &amp; 0 &amp; 0 &amp; 0&amp; 0 &amp; 0\
+0 &amp; 0 &amp; 0 &amp; -1 &amp; 2 &amp; -1 &amp; 0 &amp; 0 &amp; 0&amp; 0 &amp; 0\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; -1  &amp; 2 &amp; -1 &amp; 0 &amp; 0&amp; 0 &amp; 0\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; -1 &amp; 2 &amp; -1 &amp; 0&amp; 0 &amp; 0\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; -1 &amp; 2 &amp; -1&amp; 0 &amp; 0\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; -1 &amp; 2&amp; -1 &amp; 0\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; -1 &amp; 2 &amp; -1\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; -1 &amp; 2 &amp; -1\
+\end{array} \right ]
+\left [ \begin{array}{c} x_1 \ x_2 \ x_3 \ x_4 \ x_5 \ x_6
+\ x_7 \ x_8 \  x_9 \ x_{10} \ x_{11} \end{array} \right ]
+\end{equation} and use the code below to find the eigenvalues and eigenvectors.</p>
+<p>You can also find the eigenvectors for this equation analytically (you can find an example in the set problems). It is an example of a sparse matrix (contains lots of zeros). Note that the eigenvectors are returned as the columns in an <span class="math notranslate nohighlight">\(11 \times 11\)</span> matrix. You should extract these and plot them out (<span class="math notranslate nohighlight">\(x_i\)</span> vs <span class="math notranslate nohighlight">\(i\)</span>). You may like to use this code and decrease or increase <span class="math notranslate nohighlight">\(N\)</span> to explore how the solutions change.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The first part imports the linear algebra library so it recognises the function needed to calculate the eigenvalues and vectors</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">NP</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">LA</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">NP</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+              <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+             <span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">e_vals</span><span class="p">,</span><span class="n">e_vecs</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvalues&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vals</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvectors&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vecs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 2 -1  0  0  0  0  0  0  0  0  0]
+ [-1  2 -1  0  0  0  0  0  0  0  0]
+ [ 0 -1  2 -1  0  0  0  0  0  0  0]
+ [ 0  0 -1  2 -1  0  0  0  0  0  0]
+ [ 0  0  0 -1  2 -1  0  0  0  0  0]
+ [ 0  0  0  0 -1  2 -1  0  0  0  0]
+ [ 0  0  0  0  0 -1  2 -1  0  0  0]
+ [ 0  0  0  0  0  0 -1  2 -1  0  0]
+ [ 0  0  0  0  0  0  0 -1  2 -1  0]
+ [ 0  0  0  0  0  0  0  0 -1  2 -1]
+ [ 0  0  0  0  0  0  0  0  0 -1  2]]
+Eigenvalues
+[3.93185165+0.j 3.73205081+0.j 3.41421356+0.j 3.        +0.j
+ 2.51763809+0.j 2.        +0.j 1.48236191+0.j 0.06814835+0.j
+ 0.26794919+0.j 0.58578644+0.j 1.        +0.j]
+Eigenvectors
+[[-1.05662433e-01 -2.04124145e-01 -2.88675135e-01  3.53553391e-01
+   3.94337567e-01 -4.08248290e-01 -3.94337567e-01  1.05662433e-01
+  -2.04124145e-01 -2.88675135e-01 -3.53553391e-01]
+ [ 2.04124145e-01  3.53553391e-01  4.08248290e-01 -3.53553391e-01
+  -2.04124145e-01  6.80885866e-16 -2.04124145e-01  2.04124145e-01
+  -3.53553391e-01 -4.08248290e-01 -3.53553391e-01]
+ [-2.88675135e-01 -4.08248290e-01 -2.88675135e-01  2.27812574e-16
+  -2.88675135e-01  4.08248290e-01  2.88675135e-01  2.88675135e-01
+  -4.08248290e-01 -2.88675135e-01 -1.16264558e-16]
+ [ 3.53553391e-01  3.53553391e-01 -1.15842804e-15  3.53553391e-01
+   3.53553391e-01 -7.62137297e-16  3.53553391e-01  3.53553391e-01
+  -3.53553391e-01  3.59976775e-16  3.53553391e-01]
+ [-3.94337567e-01 -2.04124145e-01  2.88675135e-01 -3.53553391e-01
+   1.05662433e-01 -4.08248290e-01 -1.05662433e-01  3.94337567e-01
+  -2.04124145e-01  2.88675135e-01  3.53553391e-01]
+ [ 4.08248290e-01  3.47517159e-15 -4.08248290e-01 -8.76752927e-16
+  -4.08248290e-01  1.20152971e-15 -4.08248290e-01  4.08248290e-01
+  -1.68123499e-16  4.08248290e-01  3.71041776e-16]
+ [-3.94337567e-01  2.04124145e-01  2.88675135e-01  3.53553391e-01
+   1.05662433e-01  4.08248290e-01 -1.05662433e-01  3.94337567e-01
+   2.04124145e-01  2.88675135e-01 -3.53553391e-01]
+ [ 3.53553391e-01 -3.53553391e-01 -6.96321835e-16 -3.53553391e-01
+   3.53553391e-01 -6.41082192e-16  3.53553391e-01  3.53553391e-01
+   3.53553391e-01  2.95845970e-16 -3.53553391e-01]
+ [-2.88675135e-01  4.08248290e-01 -2.88675135e-01 -1.65782792e-15
+  -2.88675135e-01 -4.08248290e-01  2.88675135e-01  2.88675135e-01
+   4.08248290e-01 -2.88675135e-01 -5.66917868e-16]
+ [ 2.04124145e-01 -3.53553391e-01  4.08248290e-01  3.53553391e-01
+  -2.04124145e-01  3.01619793e-16 -2.04124145e-01  2.04124145e-01
+   3.53553391e-01 -4.08248290e-01  3.53553391e-01]
+ [-1.05662433e-01  2.04124145e-01 -2.88675135e-01 -3.53553391e-01
+   3.94337567e-01  4.08248290e-01 -3.94337567e-01  1.05662433e-01
+   2.04124145e-01 -2.88675135e-01  3.53553391e-01]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-happens-when-we-remove-the-walls">
+<h2>What happens when we remove the walls?<a class="headerlink" href="#what-happens-when-we-remove-the-walls" title="Permalink to this headline">#</a></h2>
+<p>In the previous examples the masses were attached to fixed walls by springs (Dirichlet boundary conditions). Modify the code above (reproduced below) to consider the case when the masses at the ends are not connected to a wall but are allowed to float freely. To do this you need to redetermine the equations of motion for the two masses at the end of the chain and modify the first and last rows of the matrix accordingly. Again plot out the eigenvectors. One of the eigenvectors is distinct from the others. Can you explain why it has this form?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The first part imports the linear algebra library so it recognises the function needed to calculate the eigenvalues and vectors</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">NP</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">LA</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">NP</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+              <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+             <span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">e_vals</span><span class="p">,</span><span class="n">e_vecs</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvalues&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vals</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvectors&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vecs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 2 -1  0  0  0  0  0  0  0  0  0]
+ [-1  2 -1  0  0  0  0  0  0  0  0]
+ [ 0 -1  2 -1  0  0  0  0  0  0  0]
+ [ 0  0 -1  2 -1  0  0  0  0  0  0]
+ [ 0  0  0 -1  2 -1  0  0  0  0  0]
+ [ 0  0  0  0 -1  2 -1  0  0  0  0]
+ [ 0  0  0  0  0 -1  2 -1  0  0  0]
+ [ 0  0  0  0  0  0 -1  2 -1  0  0]
+ [ 0  0  0  0  0  0  0 -1  2 -1  0]
+ [ 0  0  0  0  0  0  0  0 -1  2 -1]
+ [ 0  0  0  0  0  0  0  0  0 -1  2]]
+Eigenvalues
+[3.93185165+0.j 3.73205081+0.j 3.41421356+0.j 3.        +0.j
+ 2.51763809+0.j 2.        +0.j 1.48236191+0.j 0.06814835+0.j
+ 0.26794919+0.j 0.58578644+0.j 1.        +0.j]
+Eigenvectors
+[[-1.05662433e-01 -2.04124145e-01 -2.88675135e-01  3.53553391e-01
+   3.94337567e-01 -4.08248290e-01 -3.94337567e-01  1.05662433e-01
+  -2.04124145e-01 -2.88675135e-01 -3.53553391e-01]
+ [ 2.04124145e-01  3.53553391e-01  4.08248290e-01 -3.53553391e-01
+  -2.04124145e-01  6.80885866e-16 -2.04124145e-01  2.04124145e-01
+  -3.53553391e-01 -4.08248290e-01 -3.53553391e-01]
+ [-2.88675135e-01 -4.08248290e-01 -2.88675135e-01  2.27812574e-16
+  -2.88675135e-01  4.08248290e-01  2.88675135e-01  2.88675135e-01
+  -4.08248290e-01 -2.88675135e-01 -1.16264558e-16]
+ [ 3.53553391e-01  3.53553391e-01 -1.15842804e-15  3.53553391e-01
+   3.53553391e-01 -7.62137297e-16  3.53553391e-01  3.53553391e-01
+  -3.53553391e-01  3.59976775e-16  3.53553391e-01]
+ [-3.94337567e-01 -2.04124145e-01  2.88675135e-01 -3.53553391e-01
+   1.05662433e-01 -4.08248290e-01 -1.05662433e-01  3.94337567e-01
+  -2.04124145e-01  2.88675135e-01  3.53553391e-01]
+ [ 4.08248290e-01  3.47517159e-15 -4.08248290e-01 -8.76752927e-16
+  -4.08248290e-01  1.20152971e-15 -4.08248290e-01  4.08248290e-01
+  -1.68123499e-16  4.08248290e-01  3.71041776e-16]
+ [-3.94337567e-01  2.04124145e-01  2.88675135e-01  3.53553391e-01
+   1.05662433e-01  4.08248290e-01 -1.05662433e-01  3.94337567e-01
+   2.04124145e-01  2.88675135e-01 -3.53553391e-01]
+ [ 3.53553391e-01 -3.53553391e-01 -6.96321835e-16 -3.53553391e-01
+   3.53553391e-01 -6.41082192e-16  3.53553391e-01  3.53553391e-01
+   3.53553391e-01  2.95845970e-16 -3.53553391e-01]
+ [-2.88675135e-01  4.08248290e-01 -2.88675135e-01 -1.65782792e-15
+  -2.88675135e-01 -4.08248290e-01  2.88675135e-01  2.88675135e-01
+   4.08248290e-01 -2.88675135e-01 -5.66917868e-16]
+ [ 2.04124145e-01 -3.53553391e-01  4.08248290e-01  3.53553391e-01
+  -2.04124145e-01  3.01619793e-16 -2.04124145e-01  2.04124145e-01
+   3.53553391e-01 -4.08248290e-01  3.53553391e-01]
+ [-1.05662433e-01  2.04124145e-01 -2.88675135e-01 -3.53553391e-01
+   3.94337567e-01  4.08248290e-01 -3.94337567e-01  1.05662433e-01
+   2.04124145e-01 -2.88675135e-01  3.53553391e-01]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion-for-this-notebook">
+<h2>Conclusion for this notebook<a class="headerlink" href="#conclusion-for-this-notebook" title="Permalink to this headline">#</a></h2>
+<p>In this notebook we have explored the two mass coupled oscillator system covered in lectures and extended the solution to cases where the spring constants are unequal. The case where the masses are different is covered in a different notebook. We have shown how we can treat this as an eigenvalue/eigenvector problem and shown how the soluitions can be calculated using python. We have extended the analysis to chains with <span class="math notranslate nohighlight">\(N&gt;&gt;2\)</span> and shown how the solutions may still be calculated with simple function calls in python.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Adrian Barnes and Francesco Turci<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

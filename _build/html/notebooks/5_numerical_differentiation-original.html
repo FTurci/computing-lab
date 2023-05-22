@@ -1,0 +1,578 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5 Numerical differentiation and rounding errors. &#8212; Computing Lab</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6 Controlling programme execution - the ‘if’ statement" href="6_branching.html" />
+    <link rel="prev" title="5 Numerical differentiation and rounding errors." href="5_numerical_differentiation.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Computing Lab</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../landing-page.html">
+                    ComputingLab
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_IntroToNotebooks.html">
+   1. An Introduction to Python and Jupyter notebooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_variables_and_methods.html">
+   2. Python - Variables, objects and methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_functions_and_loops.html">
+   3 Functions and loops with numerical integration as an example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_branching.html">
+   6 Controlling programme execution - the ‘if’ statement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_while_loops.html">
+   7 ‘while’ statements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_Random_numbers.html">
+   8 Random numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_theNumpyLibrary.html">
+   9. Introduction to the Numpy library.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_inputoutput.html">
+   10. Input and output of data from python programmes.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Boltzmann-description.html">
+   PHYS10008 - extended assignment
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/5_numerical_differentiation-original.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/5_numerical_differentiation-original.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#numerical-differentiation">
+   5.1 Numerical differentiation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#forward-and-backward-difference-methods">
+     5.1.1 Forward and backward difference methods
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#central-difference-methods">
+     5.1.2 Central difference methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   5.2 Summary
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>5 Numerical differentiation  and rounding errors.</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#numerical-differentiation">
+   5.1 Numerical differentiation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#forward-and-backward-difference-methods">
+     5.1.1 Forward and backward difference methods
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#central-difference-methods">
+     5.1.2 Central difference methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   5.2 Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="numerical-differentiation-and-rounding-errors">
+<h1>5 Numerical differentiation  and rounding errors.<a class="headerlink" href="#numerical-differentiation-and-rounding-errors" title="Permalink to this headline">#</a></h1>
+<p>So far we have demonstrated the use of python for numerical integration and plotting functions.</p>
+<p>In this notebook you will learn how to:</p>
+<ul class="simple">
+<li><p>carry out simple numerical differentation,</p></li>
+<li><p>the importance of selecting the best algorithm,</p></li>
+<li><p>make estimates of errors,</p></li>
+<li><p>recognise the perils of trying to get precision by brute force.</p></li>
+</ul>
+<section id="numerical-differentiation">
+<h2>5.1 Numerical differentiation<a class="headerlink" href="#numerical-differentiation" title="Permalink to this headline">#</a></h2>
+<p><strong>NOTE.</strong> Although this notebook shows you the principles by which you can do numerical differentiation, it is something you should avoid if you can. Whenever, you can code an analytical differential you should do so.</p>
+<section id="forward-and-backward-difference-methods">
+<h3>5.1.1 Forward and backward difference methods<a class="headerlink" href="#forward-and-backward-difference-methods" title="Permalink to this headline">#</a></h3>
+<p>You may remember that when you were introduced to calculus you defined the differential of a function as,</p>
+<p><span class="math notranslate nohighlight">\(\frac{df(x)}{dx} = \lim_{\delta x \to 0} \frac{f(x)-f(x+\delta x)}{\delta x}\)</span>, where, without going into detail <span class="math notranslate nohighlight">\(f(x)\)</span> has to be differentiable. For example, if <span class="math notranslate nohighlight">\(f(x)=x^2\)</span> we find</p>
+<p><span class="math notranslate nohighlight">\(\frac{df(x)}{dx} = \lim_{\delta x \to 0} \frac{x^2 - (x+\delta x)^2}{\delta x}\)</span>
+<span class="math notranslate nohighlight">\( = \lim_{\delta x \to 0} \frac{x^2 - x^2 +2x\delta x+ (\delta x)^2}{\delta x}\)</span>
+<span class="math notranslate nohighlight">\( = \lim_{\delta x \to 0} \frac{2x \delta x +(\delta x)^2}{\delta x}\)</span>
+<span class="math notranslate nohighlight">\( = 2x \)</span></p>
+<p>In order to carry out numerical differentiation (or integration as we done already) we need to make one step back as there is no way we can take the step <span class="math notranslate nohighlight">\(\delta x \to 0\)</span>. We will therefore write:</p>
+<p><span class="math notranslate nohighlight">\(\frac{df(x)}{dx} \simeq \frac{f(x)-f(x+\Delta x)}{\Delta x}\)</span> where <span class="math notranslate nohighlight">\(\Delta x\)</span> is a small but finite (discrete) number. The smaller we can make <span class="math notranslate nohighlight">\(\Delta x\)</span> the more closely we approximate <span class="math notranslate nohighlight">\(\frac{df}{dx}\)</span>.</p>
+<p>A problem we have with this method is we don’t have any idea how the size of <span class="math notranslate nohighlight">\(\Delta x\)</span> affects the accuracy in which we can determine <span class="math notranslate nohighlight">\(\frac{df}{dx}\)</span>. We also don’t know how small we can make <span class="math notranslate nohighlight">\(\Delta x\)</span> in our calculations. We can however do better if we consider Taylor’s expansion that is a formal result from calculus.</p>
+<p><span class="math notranslate nohighlight">\(f(x+\Delta x)=f(x)+\Delta x f'(x)+ \frac{\Delta x^2}{2!} f''(x)+ ...\)</span>.     [Equation (1)]</p>
+<p>where we have written <span class="math notranslate nohighlight">\(\frac{df}{dx} =f'\)</span> etc. Re-arranging this we can write</p>
+<p><span class="math notranslate nohighlight">\(f'(x) \simeq \frac{1}{\Delta x}[f(x+\Delta x) -f(x) - \frac{\Delta x^2}{2!} f''(x) + ...]      \)</span>.    [Equation (2)]</p>
+<p>or
+<span class="math notranslate nohighlight">\(f'(x) \simeq \frac{1}{\Delta x}[f(x+\Delta x) -f(x) - E(\Delta x) + ...]\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(E(\Delta x) =\frac{\Delta x^2}{2!} f''(x) + ...\)</span></p>
+<p>From <span class="math notranslate nohighlight">\(E\)</span> we can then see that the error in our approximation of <span class="math notranslate nohighlight">\(f'(x)\)</span> is of the order <span class="math notranslate nohighlight">\(\Delta x\)</span>.</p>
+<p>We  could equally well have written, using the Taylor expansion of <span class="math notranslate nohighlight">\(f(x- \Delta x)\)</span></p>
+<p><span class="math notranslate nohighlight">\(f(x-\Delta x)=f(x)-\Delta x f'(x)+ \frac{\Delta x^2}{2!} f''(x)+ ...\)</span>.     [Equation (3)]</p>
+<p>so that</p>
+<p><span class="math notranslate nohighlight">\(f'(x) \simeq \frac{1}{\Delta x}[f(x) -f(x-\Delta x) + \frac{\Delta x^2}{2!} f''(x) + ...]       \)</span>  [Equation 4]</p>
+<p>Equations 2 &amp; 4 are both valid and are known as the  <em>forward</em> and <em>backward</em> difference methods and as you can see they will both have th same error estimator (order <span class="math notranslate nohighlight">\(\Delta x\)</span>).</p>
+</section>
+<section id="central-difference-methods">
+<h3>5.1.2 Central difference methods<a class="headerlink" href="#central-difference-methods" title="Permalink to this headline">#</a></h3>
+<p>An alternative representation of numerical difference is to subtract equation [3] from equation [1] from which we obtain the result</p>
+<p><span class="math notranslate nohighlight">\(f'(x) = \frac{f(x+\Delta x)-f(x -\Delta x)}{2\Delta x} + E(\Delta x)\)</span></p>
+<p>This is known as the <em>central</em> difference method.</p>
+<p>However, we also find that the <span class="math notranslate nohighlight">\(\frac{\Delta x^2}{2!} f''(x)\)</span> term in the error term cancels in this expression so that the error term is of the order <span class="math notranslate nohighlight">\((\Delta x)^2\)</span> rather than <span class="math notranslate nohighlight">\(\Delta x\)</span>. Hence the <em>central</em> difference method is considerably more accurate for a given <span class="math notranslate nohighlight">\(\Delta x\)</span> and this method and would be used in preference.</p>
+<p>Let’s see how this works in a bit of code. The function we are differentiating is <span class="math notranslate nohighlight">\(f(x) = x^3+5x^2+3\)</span> so <span class="math notranslate nohighlight">\(f'(x) =3x^2+10x\)</span>. <span class="math notranslate nohighlight">\(f(x)\)</span> is defined in the code as a function and can be easily changed if required. Input different values of x and compare your numerical results by the different methods with the analytical result. Note also in the code where we have defined the value of <span class="math notranslate nohighlight">\(\Delta x\)</span> we are using.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">ans</span><span class="o">=</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">+</span><span class="mi">5</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+
+<span class="n">xval</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter xval =&gt;&#39;</span><span class="p">))</span>
+<span class="n">deltx</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c1"># Define the value of delta X we will be using. </span>
+
+<span class="n">diffx</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">xval</span><span class="o">+</span><span class="n">deltx</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">xval</span><span class="o">-</span><span class="n">deltx</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">deltx</span>
+<span class="n">fdiffx</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">xval</span><span class="o">+</span><span class="n">deltx</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">xval</span><span class="p">))</span><span class="o">/</span><span class="n">deltx</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For delta x = &quot;</span><span class="p">,</span><span class="n">deltx</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;df/dx (central difference) at x = &quot;</span><span class="p">,</span><span class="n">xval</span><span class="p">,</span><span class="s2">&quot; = &quot;</span><span class="p">,</span><span class="n">diffx</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;df/dx (forward difference) at x = &quot;</span><span class="p">,</span><span class="n">xval</span><span class="p">,</span><span class="s2">&quot; = &quot;</span><span class="p">,</span><span class="n">fdiffx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">StdinNotImplementedError</span><span class="g g-Whitespace">                  </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">lt</span><span class="o">/</span><span class="n">p1n6bb0j4_173x9548b473jh0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_15338</span><span class="o">/</span><span class="mf">2713332110.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="k">return</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">xval</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter xval =&gt;&#39;</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">deltx</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c1"># Define the value of delta X we will be using.</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> 
+
+<span class="nn">~/.pyenv/versions/3.8.11/lib/python3.8/site-packages/ipykernel/kernelbase.py</span> in <span class="ni">raw_input</span><span class="nt">(self, prompt)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1001</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1002</span><span class="s2">         if not self._allow_stdin:</span>
+<span class="ne">-&gt; </span><span class="mi">1003</span><span class="s2">             raise StdinNotImplementedError(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1004</span><span class="s2">                 &quot;raw_input was called, but this frontend does not support input requests.&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1005</span><span class="s2">             )</span>
+
+<span class="ne">StdinNotImplementedError</span>: raw_input was called, but this frontend does not support input requests.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Experiment with different values of <span class="math notranslate nohighlight">\(x\)</span> and changing the definition of <span class="math notranslate nohighlight">\(f(x)\)</span> and <span class="math notranslate nohighlight">\(\Delta x\)</span>. You should be able to see how much better the result is for the central difference method.</p>
+<p>You may think you can get better and better estimates by making <span class="math notranslate nohighlight">\(\Delta x\)</span> smaller and smaller. However, ultimately you will run into numerical precision errors as you approach dividing the small number generated from a difference <span class="math notranslate nohighlight">\(\Delta f\)</span> divided by another small number (<span class="math notranslate nohighlight">\(\Delta x\)</span>). In the code above try making <span class="math notranslate nohighlight">\(\Delta x\)</span> smaller and smaller (by factors of 10) until you reach <span class="math notranslate nohighlight">\(\Delta x\)</span> = 0.0000000000000001. What do you notice? (NB. you may need to restart the kernel occasionally if you do this).</p>
+<p>In the code block below write some code to look at <span class="math notranslate nohighlight">\(f(x+\Delta) - f(x)\)</span> and <span class="math notranslate nohighlight">\(\Delta x\)</span> in the code above. This should give you a better understanding of the issue.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enter your code to print out the volues df and delta(x).</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="summary">
+<h2>5.2 Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>This has been a short notebook but it has contained some important ideas, notably how we can represent differerntials in our numerical programming and the importance in understanding the underlying mathematics properly in order to produce the most accurate results. In general you should avoid numerical differentiation. It is always preferable to use an analytical result for the derivative.</p>
+<p>In this notebook you have learnt:</p>
+<ul class="simple">
+<li><p>how to calculate the derivative of a known 1D function using forward, backward and central difference methods,</p></li>
+<li><p>learnt how using the central difference method gives a considerably improved accuracy,</p></li>
+<li><p>see how the errors may be estimated,</p></li>
+<li><p>see what happens if you try to be too accurate.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="5_numerical_differentiation.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">5 Numerical differentiation  and rounding errors.</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="6_branching.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">6 Controlling programme execution - the ‘if’ statement</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Adrian Barnes and Francesco Turci<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

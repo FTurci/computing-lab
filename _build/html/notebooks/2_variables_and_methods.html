@@ -1,0 +1,991 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>2. Python - Variables, objects and methods &#8212; Computing Lab</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3 Functions and loops with numerical integration as an example" href="3_functions_and_loops.html" />
+    <link rel="prev" title="1. An Introduction to Python and Jupyter notebooks" href="1_IntroToNotebooks.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Computing Lab</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../landing-page.html">
+                    ComputingLab
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_IntroToNotebooks.html">
+   1. An Introduction to Python and Jupyter notebooks
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. Python - Variables, objects and methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_functions_and_loops.html">
+   3 Functions and loops with numerical integration as an example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation-original.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_branching.html">
+   6 Controlling programme execution - the ‘if’ statement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_while_loops.html">
+   7 ‘while’ statements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_Random_numbers.html">
+   8 Random numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_theNumpyLibrary.html">
+   9. Introduction to the Numpy library.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_inputoutput.html">
+   10. Input and output of data from python programmes.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Boltzmann-description.html">
+   PHYS10008 - extended assignment
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/2_variables_and_methods.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/2_variables_and_methods.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-data-types">
+   2.1 Basic data types
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#integers">
+     2.1.1. Integers.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#floating-point">
+     2.1.2 Floating point
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#complex">
+     2.1.3 Complex
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#strings">
+     2.1.4 Strings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other">
+     2.1.5 Other
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-sophisticated-data-types">
+   2.2 More sophisticated data types
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lists">
+     2.2.1 Lists
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tuples">
+     2.2.2 Tuples
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-sophisticated-data-types">
+     2.2.3 Other sophisticated data types.
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#declaring-and-using-variables">
+   2.3 Declaring and using variables
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#declaring-variable-types">
+     2.3.1 Declaring variable types
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#changing-variable-types">
+     2.3.2 Changing variable types
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#calculations-using-mixed-data-types">
+     2.3.3 Calculations using mixed data types
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#an-introduction-to-lists">
+   2.4 An introduction to lists.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#an-example-of-using-lists-plotting-data-using-matplotlib">
+   2.5 An example of using lists - plotting data using matplotlib
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   2.6 Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise">
+   Exercise
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>2. Python - Variables, objects and methods</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-data-types">
+   2.1 Basic data types
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#integers">
+     2.1.1. Integers.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#floating-point">
+     2.1.2 Floating point
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#complex">
+     2.1.3 Complex
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#strings">
+     2.1.4 Strings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other">
+     2.1.5 Other
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-sophisticated-data-types">
+   2.2 More sophisticated data types
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lists">
+     2.2.1 Lists
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tuples">
+     2.2.2 Tuples
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-sophisticated-data-types">
+     2.2.3 Other sophisticated data types.
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#declaring-and-using-variables">
+   2.3 Declaring and using variables
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#declaring-variable-types">
+     2.3.1 Declaring variable types
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#changing-variable-types">
+     2.3.2 Changing variable types
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#calculations-using-mixed-data-types">
+     2.3.3 Calculations using mixed data types
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#an-introduction-to-lists">
+   2.4 An introduction to lists.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#an-example-of-using-lists-plotting-data-using-matplotlib">
+   2.5 An example of using lists - plotting data using matplotlib
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   2.6 Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise">
+   Exercise
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="python-variables-objects-and-methods">
+<h1>2. Python - Variables, objects and methods<a class="headerlink" href="#python-variables-objects-and-methods" title="Permalink to this headline">#</a></h1>
+<p>The aim of any numerical method we apply is to a use a series of step by step calculations to find a numerical answer to our problem. This step by step process is known as the <em>algorithm</em> and the purpose of our programme is to translate these series of steps, in the language of our choice (in this case python), to a form that can be executed by our computer. A key part of our programme is that we need to store the numbers we calculate in <em>variables</em> that we can store and use when executing our programme. (A bit like using the memory in a calculator).</p>
+<p>In this notebook you will understand and learn how to use:</p>
+<ul class="simple">
+<li><p>the common data types (integers,floats,complex) used in numerical programming for storing variables,</p></li>
+<li><p>the methods used to identify and convert between data types,</p></li>
+<li><p>expressions with variables with mixed data types,</p></li>
+<li><p>the list data type and how to refer to individual elements in the list,</p></li>
+<li><p>use basic plotting functions from the Matplotlib package as an example of using lists.</p></li>
+</ul>
+<section id="basic-data-types">
+<h2>2.1 Basic data types<a class="headerlink" href="#basic-data-types" title="Permalink to this headline">#</a></h2>
+<p>There are four main data types  (we will use others) that we will use in this unit.</p>
+<section id="integers">
+<h3>2.1.1. Integers.<a class="headerlink" href="#integers" title="Permalink to this headline">#</a></h3>
+<p>These can take positive, negative or zero values and are always whole numbers (no decimal points).  In python they are defined as ‘type int’. The size of an integer number in python is in principle unlimited and dynamically allocated. There a places where we must use them, for instance, in indexing for items in lists as we will see later.</p>
+</section>
+<section id="floating-point">
+<h3>2.1.2 Floating point<a class="headerlink" href="#floating-point" title="Permalink to this headline">#</a></h3>
+<p>As a default these are stored as ‘double precision’ numbers. These will be sufficient for the calculations we will do in this unit. It is possible to ‘declare’ floating point numbers with higher precision to avoid rounding errors but this does not always help! If precision  is a problem, it is better to think carefully about the algorithm you are using rather than assuming that forcing higher precision in your calculations will fix the problem. In python these variables are defined as ‘type float’. To enter float numbers in scientific notation you use the syntax e.g. -2.54 or 3.546e-10</p>
+</section>
+<section id="complex">
+<h3>2.1.3 Complex<a class="headerlink" href="#complex" title="Permalink to this headline">#</a></h3>
+<p>In python is is possible to do calculations with complex numbers of the format <em>a+bj</em> where <span class="math notranslate nohighlight">\(j=\sqrt{(-1)}\)</span>. The real and imaginary parts of the number  are internally stored as two float objects. Provided we declare variables as complex numbers (‘type complex’) it is straight forward to do calculations using complex arithmetic and we will use this later.</p>
+</section>
+<section id="strings">
+<h3>2.1.4 Strings<a class="headerlink" href="#strings" title="Permalink to this headline">#</a></h3>
+<p>Strings are used to store characters, for example, ‘Hello World’, that we used previously. The ability to manipulate and process strings is important, for example in writing <em>language compilers</em> but in this unit will be limited to simple tasks, for example, in formatting output. In python they are defined as ‘type str’. Note, strings may be written as “string 1” or ‘string 2’ but the quotes should not be mismatched, i.e. ‘string 3” is not allowed.</p>
+</section>
+<section id="other">
+<h3>2.1.5 Other<a class="headerlink" href="#other" title="Permalink to this headline">#</a></h3>
+<p>There are a very large number of other variable types that can be used in python, especially when we use the numpy library. You will generally learn about these as you advance in the language when you have a partcular problem to solve. One that is common but often not noticed is the ‘boolean’ type with ‘True’ or ‘False’ values. We will look in detail at boolean types later.</p>
+</section>
+</section>
+<section id="more-sophisticated-data-types">
+<h2>2.2 More sophisticated data types<a class="headerlink" href="#more-sophisticated-data-types" title="Permalink to this headline">#</a></h2>
+<p>There are many more sophisticated data types that may be declared and used in python.</p>
+<section id="lists">
+<h3>2.2.1 Lists<a class="headerlink" href="#lists" title="Permalink to this headline">#</a></h3>
+<p>A list may contain an arbitary series of objects (numbers, strings other objects) and is enclosed in square brackets e.g.  [1, 2.3, “Hello World]. We can mix data types in our lists (i.e. floats, strings etc.). They are a powerful way of handling data but by and large we will limit our use of lists to lists of numbers that we can use for vector calculations and some lists of number lists that we will use for matrix operations. If you are used to other languages you may be more familair with these as arrays. We will see how we declare and use lists as we go along.</p>
+</section>
+<section id="tuples">
+<h3>2.2.2 Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">#</a></h3>
+<p>These may often be confused with lists as they look similar but are enclosed by round brackets e.g. (1, 2.3 ,”Hello World”). However, the values in a tuple may not be changed and are fixed when the programme runs. Attempting to use round rather than square brackets for a list is easily done and can lead to frustrating error messages.</p>
+</section>
+<section id="other-sophisticated-data-types">
+<h3>2.2.3 Other sophisticated data types.<a class="headerlink" href="#other-sophisticated-data-types" title="Permalink to this headline">#</a></h3>
+<p>In python its is possible to create a whole hierarchies of collections of objects. For long programs and properly <em>object oriented programming</em> these are invaluable for creating clear and reliable code. We will not be using them here but the ‘set’ and ‘dictionary’ types are examples if you wish to investigate further.</p>
+</section>
+</section>
+<section id="declaring-and-using-variables">
+<h2>2.3 Declaring and using variables<a class="headerlink" href="#declaring-and-using-variables" title="Permalink to this headline">#</a></h2>
+<section id="declaring-variable-types">
+<h3>2.3.1 Declaring variable types<a class="headerlink" href="#declaring-variable-types" title="Permalink to this headline">#</a></h3>
+<p>In other languages. such as C or Fortran, it is necessary or usual to ‘declare’ variable types before they are used. This is known as strong typing and makes sure the type of any variable used in the programme is clear. This is not the case in python and the data type is usually defined when the variable is first assigned. Look at and run the code fragment below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">11.8</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">3.24</span><span class="o">+</span><span class="mf">6.5</span><span class="n">j</span>
+<span class="n">d</span> <span class="o">=</span> <span class="s1">&#39;help&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the type of a is &quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">11.2</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the type of a is  &lt;class &#39;int&#39;&gt;
+&lt;class &#39;float&#39;&gt;
+&lt;class &#39;complex&#39;&gt;
+&lt;class &#39;str&#39;&gt;
+10
+11.8
+(3.24+6.5j)
+help
+&lt;class &#39;float&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example the type() function returns the type of the variable in the enclosed brackets. Here you can see that ‘a’ is recognised as an integer as there is no decimal point when it was first used, ‘b’ is a float as it contains a decimal point, ‘c’ is a complex number as it contains a ‘j’ and ‘d’ is a string as its values is given between quotes. Note, however, that the type of variable a was not fixed. The minute we assigned it to float number its type changed!</p>
+<p><strong>Exercise.</strong> You may like to modify the print statements in the code above to make the output a little clearer (as for example in the first print statement).</p>
+<p>If you are unfamiliar with computer programming you may find the use of ‘=’ a bit strange. In python and other programming languages this does not mean a mathematical equality  but should rather be interpreted as ‘a’ is assigned the value of 10 (in this case).</p>
+<p>To see how this works run the code fragment below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="mi">5</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span><span class="o">+=</span><span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span><span class="o">+=</span><span class="mf">3.5</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span><span class="o">-=</span><span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+15
+16
+19.5
+17.5
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this case the line ‘a=a+5’ does not make mathematical sense. However, it is better understood as ‘take the value stored in the variable a, add 5 to it, and then assign the result to the variable a. Hopefully the result from this example should show you how it works.</p>
+<p>The += operator looks confusing and you don’t have to use it if don’t want to.</p>
+<p><em>a += n</em> is translated as take the variable a and increment it by <em>n</em>.</p>
+<p>it is equivalent to <em>a = a +n</em></p>
+<p>The related operator <em>a -= n</em> does the same except the variable <em>a</em>  is decremented by <em>n</em>. it is equivalent to <em>a = a - n</em></p>
+<p>Did you note where the type of the variable <em>a</em> changed in the above code? Beware and try not to overwrite data types - there can be unforeseen consequencces, but fortunately not here.</p>
+</section>
+<section id="changing-variable-types">
+<h3>2.3.2 Changing variable types<a class="headerlink" href="#changing-variable-types" title="Permalink to this headline">#</a></h3>
+<p>The data type of variables can be changed explicitly using the int(), float(), complex() and str(). At least when we do this we are taken a deliberate action.  For example look at the following code fragment to see how the types may be changed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">b</span><span class="o">=</span><span class="nb">print</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="n">c</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;3.3453&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+<span class="n">d</span><span class="o">=</span><span class="nb">complex</span><span class="p">(</span><span class="s2">&quot;2.3+5.2j&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(10+0j)
+3.3453
+3
+(2.3+5.2j)
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, we clearly can’t convert a complex variable to an integer or float type. We can however find the real and imaginary parts of a complex number as follows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="mf">34.5</span><span class="o">+</span><span class="mf">2.3</span><span class="n">j</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">real</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>34.5 2.3
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can find more of the objects and methods by using the the dir() function (see notebook 1) on our variable <em>a</em>. See if you can find the simple way of finding the complex conjugate of <em>a</em> (if you can’t see’ll see it shortly). You can also see all the methods that may be appled to complex numbers, for example, find the method for finding its absolute value. If you wish, type <em>dir(a)</em> into the following cell to find the methods and attributes associated with <em>a</em>.</p>
+</section>
+<section id="calculations-using-mixed-data-types">
+<h3>2.3.3 Calculations using mixed data types<a class="headerlink" href="#calculations-using-mixed-data-types" title="Permalink to this headline">#</a></h3>
+<p>Run and look carefully at the following code fragment below (you will get an error!)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">b</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">c</span><span class="o">=</span><span class="mf">2.345</span>
+<span class="n">d</span><span class="o">=</span><span class="mf">3.2</span><span class="o">+</span><span class="mf">3.4</span><span class="n">j</span>
+<span class="n">e</span><span class="o">=</span> <span class="mf">2.1</span><span class="o">*</span><span class="mf">1.4</span><span class="n">j</span>
+<span class="n">f</span><span class="o">=</span><span class="s1">&#39;1.234&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">//</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">d</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">d</span><span class="o">*</span><span class="n">e</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">d</span><span class="o">/</span><span class="n">e</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">d</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="nb">float</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.3333333333333335
+3
+(7.504000000000001+7.973000000000001j)
+(-9.996+9.408j)
+(1.1564625850340136-1.08843537414966j)
+23.450000000000003
+(21.8+0j)
+2.89373
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">lt</span><span class="o">/</span><span class="n">p1n6bb0j4_173x9548b473jh0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_15308</span><span class="o">/</span><span class="mf">1790771146.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="nb">print</span> <span class="p">(</span><span class="n">d</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="nb">print</span> <span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="nb">float</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="ne">---&gt; </span><span class="mi">15</span> <span class="nb">print</span> <span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">f</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: can&#39;t multiply sequence by non-int of type &#39;float&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are a few points to note.</p>
+<p>In mixed arithmetic a calculation that includes a complex type will always return a complex answer and a calulation that involves a float and an integer will always return a float answer.</p>
+<p>The case of integer division is interesting. In many languages a division involving two integers would result in an integer (rounded) value (indeed this is what happened in the older version of python (version 2 that is now obsolete)!). In python (version 3) it results in a variable of float type. To maintain purely integer arithmetic you must use the integer division operator // as shown. In contrast multiplying two integers returns an integer result.</p>
+<p><strong>WARNING.</strong> As noted above, old code written in Python 2, will behave differently or may not even run in Python 3. If you are using your own installation of python make sure you are using python 3.</p>
+<p>Unless a number, stored as a string, is converted into a numeric data type (with int(),float() or complex()) python will produce an error, it will not try to do the conversion automatically. Note in the above how the line number in which the error occurs is shown. Note however, the error message is a little obscure. A quick google search however does give better explanation. Try searching google, or other, for this error message and see what you find out. You may wish to correct this error before you proceed.</p>
+<p>Exercise. In the code cell below you should experiment with different variable types, how you convert them and using it to test some of the basic python maths operators. You may find you need to restart the kernel and clear the output if you start to find errors you don’t understand.</p>
+</section>
+</section>
+<section id="an-introduction-to-lists">
+<h2>2.4 An introduction to lists.<a class="headerlink" href="#an-introduction-to-lists" title="Permalink to this headline">#</a></h2>
+<p>The list is a sophisticated data type that we will often use in this unit. It is therefore useful to get the basic idea of using them early on. We will do this in particular by seeing how we use the contents of lists to plot data.</p>
+<p>Look at the following code fragment (I recommend you restart the kernel and clear output before you do this. If you do make sure you return to this point before executing any code).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that in both cases we have created a list that contains the numbers 1-10. Note, how the order in which they occur in  the list is also preserved when we print the list. We can also see the method by which we can refer to an individual element of the list i.e. a[4] and b[4].</p>
+<p><strong>Note.</strong> the index for an element in an array must be an integer. This is a good reason for using integer variables where approrpiate! In the above code, try using a float number as an index (i.e. <em>b[4.5]</em> and observe the error you get.</p>
+<p><strong>IMPORTANT</strong> . A common cause of error and misunderstanding when using lists is the element to which the index number (the one in square brackets) refers. As can be seen, in the code fragment above a[4] corresponds to 5 and b[4] refers to 8, both of which are the 5th items in the list. Why? The index number of lists starts from 0 and not 1. Hence the elements in the list are indexed a[0],a[1] … a[9]. (The convention is not the same in all languages - beware!)</p>
+<p>We can refer to and operate on invidual items in the list using the appropriate index. Look at the code fragments below and inspect the answers. Make sure that you understand how the new values in ‘a’ have been obtained.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are several standard methods that can be used with the list type. For example, the following code fragment sorts in ascending order and then reverses the order of the elements in the list a.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you would quickly like to see the methods and attributes for a list type <em>dir(a)</em> in the code cell below and run.</p>
+</section>
+<section id="an-example-of-using-lists-plotting-data-using-matplotlib">
+<h2>2.5 An example of using lists - plotting data using matplotlib<a class="headerlink" href="#an-example-of-using-lists-plotting-data-using-matplotlib" title="Permalink to this headline">#</a></h2>
+<p>A common task in numerical modelling is to plot the results of calculations. it may even involve some input of experimental data for plotting as well. In python there is a very sophisticated library for plotting data. The library is extensive and can produce plots of quality sufficient for scientific publication. Full details may be found at <a class="reference external" href="https://matplotlib.org">https://matplotlib.org</a> along with plenty of examples and tutorials for producing a wide range of types of graph.  Fortunately, even given its versatility, it is still straightforward to produce some simple plots. Here we will priduce some very simple plots using lists. To import the packages we require we must include the following at the start of our code.</p>
+<p><em>import matplotlib.pyplot as plt</em></p>
+<p>This only imports the ‘pyplot’ part of matplotlib. Look at and run the code fragment below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we have a simple set of data. If this is the only list ‘passed’ to the plot function it will assume it is y-data and the corresponding x values are [0, 1, ..4] (remember our indexes start from zero). As you can see the default plot is a line connecting the data points (not obvious from this graph). We can change the colour of the line by using</p>
+<p><em>plt.plot(data,”r”)</em>        (red)</p>
+<p><em>plt.plot(data,”g”)</em>        (green)</p>
+<p>try modifying the code above to chnage the colour of the line. (Other colours are available - look them up).</p>
+<p>Run the code fragment below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="s2">&quot;ro&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see the additional parameter passed to the plot function means the data is now plotted as points rather than as a connected line. In this case red circles. In the two code fragments above try changing the values in the ‘data’ in the list and observe the change in the graph. You should also try changing the point plotting. Instead of “ro”, try “go”,”b+”,”b*”,”cx”. You may wish to look at the the Matplotlib web site to find more symbol types and colours.</p>
+<p>If we wish to plot x-y data we need to supply two lists one list with the x-values and one with the the y-values. It is important that each list has exactly the same number of items and that there is a one-to-one correspondence between the elements in lists. i.e the 5th data point is xval[4], yval[4] if the the lists xval and yval that contain the data.</p>
+<p>Run the code fragment below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">xval</span><span class="o">=</span><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span><span class="mf">1.9</span><span class="p">,</span><span class="mf">3.2</span><span class="p">,</span><span class="mf">3.9</span><span class="p">,</span><span class="mf">5.2</span><span class="p">]</span>
+<span class="n">yval</span><span class="o">=</span><span class="p">[</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mf">5.6</span><span class="p">,</span> <span class="mf">6.3</span><span class="p">,</span> <span class="mf">9.4</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xval</span><span class="p">,</span><span class="n">yval</span><span class="p">,</span><span class="s2">&quot;ro&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xval</span><span class="p">,</span><span class="n">yval</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we have introduced two lists, one with x values, one with y values. We have plotted the data as red data points and linked them together with straight lines. Try changing the colour of the line and the points.</p>
+<p>The list of x values does not need to be numerical. In the example below our list of x values refers to fruit and the yvals the histogram value for each fruit. Note how we have changed the type of plot to ‘bar’.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">xval</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;apples&quot;</span><span class="p">,</span><span class="s2">&quot;pears&quot;</span><span class="p">,</span><span class="s2">&quot;plums&quot;</span><span class="p">,</span><span class="s2">&quot;oranges&quot;</span><span class="p">,</span><span class="s2">&quot;lemons&quot;</span><span class="p">]</span>
+<span class="n">yval</span><span class="o">=</span><span class="p">[</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mf">5.6</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mf">9.4</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xval</span><span class="p">,</span><span class="n">yval</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you see once you have the data in appropriate lists it is easy to produce different plot types. You may wish to play around with the code fragments above to change the way the data is plotted. What we have produced here is a very tiny fraction of the possible ways of plotting data using Matplotlib. We will come across others as we go through the course but you can always refer to <a class="reference external" href="https://matplotlib.org">https://matplotlib.org</a> for more examples.</p>
+<p>Look at and run the code fragment below. There are several things you might note. We have controlled the appearance of the graph (labels, titles etc.) by setting further attributes with the plt methods. We have set the axes range using the <em>plt.axis</em> method and we have drawn a grid on our graph with the <em>plt.grid</em> method. For the latter note how we have used the boolean value ‘True’. You may wish to edit the code fragment to test the effect of changing some of these attributes.</p>
+<p>You may also note that we have imported the math package to give us the constant <span class="math notranslate nohighlight">\(\pi\)</span> and the <span class="math notranslate nohighlight">\(\sin\)</span> function. This is a very clumsy and laborious way of plotting the <span class="math notranslate nohighlight">\(\sin\)</span> function and we will see better methods later. However, it does show how you may use the index of the array <span class="math notranslate nohighlight">\(x\)</span> to generate the <span class="math notranslate nohighlight">\(y\)</span> values at each point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.4</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.6</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.8</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="n">pi</span><span class="p">,</span><span class="mf">1.2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="mf">1.4</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="mf">1.6</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="mf">1.8</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">]</span>
+<span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">6</span><span class="p">]),</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">7</span><span class="p">]),</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">8</span><span class="p">]),</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">9</span><span class="p">]),</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">])]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;sin(x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;A simple plot of sin(x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We may wish to save the plot to an image file that we might incorporate into other electronic documents. To do this use the <em>savefig</em> pyplot attribute as shown in the code below. Note, how the plt.savefig() function replaces the plt.show() in the previous example. There is much more that can be done with the savefig function (change file formats for example, e.g. “test.pdf”) but this is enough for what we will be doing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;sin(x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;A simple plot of sin(x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;test.jpg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="summary">
+<h2>2.6 Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>in this notebook you have been introduced to:</p>
+<ul class="simple">
+<li><p>the different data types that may assigned to variables in your programmes,</p></li>
+<li><p>seen how you can identify and use different data types,</p></li>
+<li><p>the results that are obtained when using mixed type calculations,</p></li>
+<li><p>the concept of a list in python and how to reference different elements in a list,</p></li>
+<li><p>the Matplotlib plotting package and how plots may be created from data in lists.</p></li>
+</ul>
+</section>
+<section id="exercise">
+<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">#</a></h2>
+<p>Go to the web site: <a class="reference external" href="https://matplotlibguide.readthedocs.io/en/latest/Matplotlib/types.html">https://matplotlibguide.readthedocs.io/en/latest/Matplotlib/types.html</a></p>
+<p>This is a more detailed tutorial on the possible plot types in matplotlib (including pie charts, polar plots etc.). You may need to wait a little to understand all of the python code shown but in the meantime see if you can include a simple example of each type of plot in to this notebook, or if you prefer, a new notebook. You may find this a useful reference for plotting in future courses, and of course, you can add more hints and tips of your own as you get more experienced.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="1_IntroToNotebooks.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">1. An Introduction to Python and Jupyter notebooks</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="3_functions_and_loops.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">3 Functions and loops with numerical integration as an example</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Adrian Barnes and Francesco Turci<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

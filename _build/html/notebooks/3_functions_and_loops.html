@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>3 Functions and loops with numerical integration as an example &#8212; Computing Lab</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5 Numerical differentiation and rounding errors." href="5_numerical_differentiation.html" />
+    <link rel="prev" title="2. Python - Variables, objects and methods" href="2_variables_and_methods.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Computing Lab</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../landing-page.html">
+                    ComputingLab
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_IntroToNotebooks.html">
+   1. An Introduction to Python and Jupyter notebooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_variables_and_methods.html">
+   2. Python - Variables, objects and methods
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   3 Functions and loops with numerical integration as an example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation-original.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_branching.html">
+   6 Controlling programme execution - the ‘if’ statement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_while_loops.html">
+   7 ‘while’ statements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_Random_numbers.html">
+   8 Random numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_theNumpyLibrary.html">
+   9. Introduction to the Numpy library.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_inputoutput.html">
+   10. Input and output of data from python programmes.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Boltzmann-description.html">
+   PHYS10008 - extended assignment
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/3_functions_and_loops.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/3_functions_and_loops.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   3 Functions and loops with numerical integration as an example
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#for-loops">
+     3.1 For loops.
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-structure-of-a-for-loop">
+       3.1.1 The structure of a ‘for’ loop
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#an-example-of-a-for-loop-for-calculation-calculating-factorials">
+       3.1.2 An example of a ‘for’ loop for calculation - calculating factorials
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions">
+     3.2 Functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-is-a-function">
+       3.2.1 What is a function?
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simple-numerical-integration-using-for-loops-and-functions">
+     3.3 Simple numerical integration - using for loops and functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#numerical-integration">
+       3.3.1 Numerical integration
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summary">
+     3.3 Summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>3 Functions and loops with numerical integration as an example</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   3 Functions and loops with numerical integration as an example
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#for-loops">
+     3.1 For loops.
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-structure-of-a-for-loop">
+       3.1.1 The structure of a ‘for’ loop
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#an-example-of-a-for-loop-for-calculation-calculating-factorials">
+       3.1.2 An example of a ‘for’ loop for calculation - calculating factorials
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions">
+     3.2 Functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-is-a-function">
+       3.2.1 What is a function?
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simple-numerical-integration-using-for-loops-and-functions">
+     3.3 Simple numerical integration - using for loops and functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#numerical-integration">
+       3.3.1 Numerical integration
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summary">
+     3.3 Summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="functions-and-loops-with-numerical-integration-as-an-example">
+<h1>3 Functions and loops with numerical integration as an example<a class="headerlink" href="#functions-and-loops-with-numerical-integration-as-an-example" title="Permalink to this headline">#</a></h1>
+<p>In the previous notebooks you have used python to execute a series of programme steps sequentially. In this notebook you will be introduced to two new <em>programming structures</em>: the <em>for</em> loop and <em>functions</em> that are used for carrying out repetive programming tasks. You will learn how to use these structures with reference to the task of basic numerical integration. Although the method we will use is simple, it is the basis around which better and more accurate methods can be built.</p>
+<p>In this notebook you will learn and understand how to use:</p>
+<ul class="simple">
+<li><p>‘for’ loops to carry out calculations for a fixed  number of iterations,</p></li>
+<li><p>‘functions’ as a way to simplify and clarify repetive calculations for different values of a variable,</p></li>
+<li><p>combine the use of for loops and functions for simple methods of numerical integration,</p></li>
+<li><p>the ‘range’ function to define the index for a loop.</p></li>
+</ul>
+<section id="for-loops">
+<h2>3.1 For loops.<a class="headerlink" href="#for-loops" title="Permalink to this headline">#</a></h2>
+<section id="the-structure-of-a-for-loop">
+<h3>3.1.1 The structure of a ‘for’ loop<a class="headerlink" href="#the-structure-of-a-for-loop" title="Permalink to this headline">#</a></h3>
+<p>Look at and run the python code fragment below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+1
+2
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is worth taking some time to look at this code. We note that we have introduced a variable <em>i</em> (in this case it will be an integer) as an index. The programme interprets the first line as:</p>
+<p>“for all the possible values of <em>i</em> defined after <em>in</em> , execute all the following indented code with each value of <em>i</em> in turn, until all vlaues of <em>i</em> have been used.”</p>
+<p>The programme will continue, after the indented code, once this ‘loop’ has been completed.</p>
+<p>The code above shows the values of <em>i</em> that were used in the loop.</p>
+<p><strong>IMPORTANT.</strong></p>
+<ul class="simple">
+<li><p>The first line in the ‘for’ loop must end with a colon (:). If you forget this you will get an error. (Delete it in the code above and see what happens).</p></li>
+<li><p>The lines in the loop must be indented. If you don’t have at least one indented line you will get an error (Remove the indentation in the code above and see what happens). You may also note that in Jupyter notebooks the colour of the code line changes after 4 spaces of indentation. 4 spaces is the convention in python but you can use more, or less spacing.</p></li>
+<li><p>You must be consistent in your indentation. Python (unlike other languages) uses indentation to identify code block.</p></li>
+<li><p>The range function used in the for loop, used in the example above, often leads to confusion. In this code we have 3 values of <em>i</em> , as we might expect, but they correspond to the values 0,1,2 and NOT 1,2,3.</p></li>
+</ul>
+<p>Look at and run the code fragment below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+6
+9
+</pre></div>
+</div>
+</div>
+</div>
+<p>This shows a more complete definition of the range function. In this case the first number in ‘range’ is the first value of <em>i</em> to be used, the second number indicates the last value of <em>i</em> to be used and the third number the amount <em>i</em> should be incremented each time until it reaches the last value.</p>
+<p><strong>IMPORTANT.</strong> Note, we might expect the loop to use a value of <em>i=12</em> . However, it only continues the loop when the index is less that the last value in the range. If it is equal to the last number the execution of the loop ends. Again, this is common source of confusion and errors in calculations. Beware!</p>
+<p><strong>Note.</strong> The values used in the range function must be integers.</p>
+<p>Look at and run the code fragment below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+1
+4
+5
+</pre></div>
+</div>
+</div>
+</div>
+<p>From this you can see that the ‘range’ function actually defines a hidden, sequential list of numbers that the loop cycles through. In the example above you can see python goes through each successive element of a list of integers without using a range function.</p>
+<p>To make matters perhaps more confusing, look at and run the code fragment below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">fnum</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">2.3</span><span class="p">,</span><span class="mf">4.5</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">fnum</span><span class="p">)</span>
+    
+<span class="k">for</span> <span class="n">astring</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;apples&quot;</span><span class="p">,</span><span class="s2">&quot;pears&quot;</span><span class="p">,</span><span class="s2">&quot;bananas&quot;</span><span class="p">,</span><span class="mf">5.0</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">astring</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.2
+2.3
+4.5
+apples
+pears
+bananas
+5.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>From this we can see we can have a list of any data types to used in each iteration of our loop. Indeed, we can even mix the data types in the list! By and large in this course we will stick to using the <em>range</em> function to generate values for an index for our loop but you may see other forms  on your travels!</p>
+</section>
+<section id="an-example-of-a-for-loop-for-calculation-calculating-factorials">
+<h3>3.1.2 An example of a ‘for’ loop for calculation - calculating factorials<a class="headerlink" href="#an-example-of-a-for-loop-for-calculation-calculating-factorials" title="Permalink to this headline">#</a></h3>
+<p>The factorial of a number <span class="math notranslate nohighlight">\(n!\)</span> is defined as (provided we assume <span class="math notranslate nohighlight">\(n \ge 1\)</span> )</p>
+<p><span class="math notranslate nohighlight">\(n! = 1\times2\times3\ ....\times(n-1)\times n\)</span></p>
+<p>How can we use our for loop to calculate the factorial of a number for arbitary <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<p>Look at and run the code fragment below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">fac</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+   <span class="n">fac</span><span class="o">=</span><span class="n">fac</span><span class="o">*</span><span class="n">i</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The factorial of&quot;</span><span class="p">,</span> <span class="n">n</span> <span class="p">,</span><span class="s2">&quot;is&quot;</span><span class="p">,</span><span class="n">fac</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The factorial of 10 is 3628800
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look very carefuly at this code and make sure that you understand how it works. You will be using loops of this form a lot.</p>
+<p>Points to note are:</p>
+<ul class="simple">
+<li><p>We are calculating the factorial of the variable <em>n</em> set in the first line. Try different values and check the result. Note, it must be integer &gt; 1.</p></li>
+<li><p>We have set a value of fac before we execute the loop. Why did we need to do this? (try removing the line and see what happens).</p></li>
+<li><p>Why did we need to use (n+1) in our range rather than n?</p></li>
+<li><p>Why didn’t we just use the ‘range(n+1)’ for our loop?</p></li>
+<li><p>Note how the unindented print statement is executed after the loop is completed.</p></li>
+<li><p>We have introduced a more complicated print statement that prints out useful text and two of the variables used in the programme.</p></li>
+</ul>
+</section>
+</section>
+<section id="functions">
+<h2>3.2 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">#</a></h2>
+<section id="what-is-a-function">
+<h3>3.2.1 What is a function?<a class="headerlink" href="#what-is-a-function" title="Permalink to this headline">#</a></h3>
+<p>You are already familiar with the idea of a function in python. For example, the sin() and cos() functions from the <em>math</em> package that you have seen earlier. The key point is that these will ‘return’ the value of sin etc. for any valid variable that we ‘pass’ to it. However, although python has many inbuilt functions and functions that can be imported, there are many times when we want to define our own. For example, suppose we have a polynomial function,</p>
+<p><span class="math notranslate nohighlight">\(f(x) = 4x^2+3x+1\)</span></p>
+<p>that we wish to evaluate at many points in our programme. We could have a line, for example,</p>
+<p><em>a = 4*x**2 + 3*x+1</em></p>
+<p>at each point in our programme that we wish to evaluate the function. Each time we would need to set <em>x</em> before caclulating <em>a</em>. This would not only be tedious but also likely to produce errors into you code.</p>
+<p>The better and easier way is to define our own function in our programme. To see how this is done look at and run the following code fragment (it may be a good idea to restart the kernel at this point).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fpoly</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">fpoly</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fpoly</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fpoly</span><span class="p">(</span><span class="mf">2.5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8
+23
+33.5
+</pre></div>
+</div>
+</div>
+</div>
+<p>Take some care to look at this code fragment. You should note that our function has the name <em>fpoly</em> and that it returns a value for <em>fpoly</em> at the point <em>x</em>. Verify that it has evaluated the function as you expect.</p>
+<p><strong>IMPORTANT.</strong> Note, that like our loop the <em>def</em> line must end with a colon and the code for the function must be indented. The function should also be defined (best at the top of the code) before you need to call it.</p>
+<p>You may try and change this code to generate a function of your own to test your understanding of functions.</p>
+<p>You may also note that a function may passed any number of variables but it will only return one value. For example, look at the trivial function below,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fmult</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">ans</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">fmult</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Aside.</strong> Python can be used as/is an <em>object oriented</em> language. A function definition is a much simpler version of a’class’ definition we would write if writing properly object oriented code. In this unit we will not be using any user defined classes (that may contain functions) but, for example, when you import the maths package you are generating an ‘instance’ of the math ‘class’ that includes all the trig functions etc. You may use object orientation and python classes in more advanced courses.</p>
+</section>
+</section>
+<section id="simple-numerical-integration-using-for-loops-and-functions">
+<h2>3.3 Simple numerical integration - using for loops and functions<a class="headerlink" href="#simple-numerical-integration-using-for-loops-and-functions" title="Permalink to this headline">#</a></h2>
+<section id="numerical-integration">
+<h3>3.3.1 Numerical integration<a class="headerlink" href="#numerical-integration" title="Permalink to this headline">#</a></h3>
+<p>In your calculus courses you will have become familiar with the idea of integration (anti-differentation) and the analytical methods by which you may evaluate definite integrals. For example, you should be able to evaluate the definite integral</p>
+<p><span class="math notranslate nohighlight">\(\int_0^2 x^2 dx\)</span></p>
+<p>to obtain the result 8/3. You have learnt many techniques for eavluating integrals of many forms (by parts etc) but occasionally you may have found an integral which you were not able to evaluate. This may be because your knowledge of calculus is not advanced enough or no analytical result exists. However, in cases where it is not possible or we are unable to evaluate a definite integral we may still use numerical methods to find a (approximate) solution. The methods used for numerical integration and where and when they are used would be a complete course in itself (for example, how to deal with infinite and semi-infinite integrals). Here we will look at a simple method, column integration as s demonstration of the ideas.</p>
+<p>You should be familiar with the idea of 1D integration as evaluating the area under a curve. If not, I refer you to basic texts on calculus. Given this, the easiest way to approximate the area under a curve is to divide the curve to be integrated into evenly spaced regions on the <span class="math notranslate nohighlight">\(x\)</span> axis and then to draw a series of columns that are centred on each region and whose height is given by the value of the function evaluated at the centre of each region. The approximate area under the curve is then the sum of the areas of all these columns. Mathemtically we would write this as:</p>
+<p><span class="math notranslate nohighlight">\(\int_a^b f(x) dx \simeq \sum_{i=1}^n f_i(x)\Delta x\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\Delta x = (b-a)/n\)</span> and <span class="math notranslate nohighlight">\(f_i(x) = f(a+\Delta x \times  (i -1/2))\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is the number of regions in to which we have divided the range <span class="math notranslate nohighlight">\((a,b)\)</span>.</p>
+<p>Let’s see how we can apply this for a simple function that we know. For example, to evaluate <span class="math notranslate nohighlight">\(\int_2^5 x^2 dx\)</span></p>
+<p>Look at and run the code below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A programme to integrate a function, f(x), numerically</span>
+<span class="c1"># Firstly, let&#39;s define the f(x) as a python function.</span>
+<span class="c1">#</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">ans</span><span class="o">=</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># The integration limits are a, b and the region is divided into n columns</span>
+<span class="c1"># the width of each column will be (b-a)/n</span>
+<span class="c1">#</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">2.0</span>
+<span class="n">b</span><span class="o">=</span><span class="mf">5.0</span>
+<span class="n">deltax</span><span class="o">=</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">n</span> <span class="c1"># calculate delta x</span>
+<span class="c1"># </span>
+<span class="c1"># The answer to the integral will be stored in the variable &#39;result&#39;.</span>
+<span class="c1">#</span>
+<span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">result</span><span class="o">=</span><span class="n">result</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">deltax</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mf">2.0</span><span class="p">))</span><span class="o">*</span><span class="n">deltax</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>38.9775
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hopefully you are able to find the analytical result for this calculation as <span class="math notranslate nohighlight">\(\int_2^5 x^2 dx = 39\)</span></p>
+<p>Now let’s look at the code.</p>
+<p>You will see that we have introduced comments into our code for the first time. The way to do this is to use the # symbol. Anything that appears after a # symbol in a line is ignored when python runs the code, so we can have comments as lines by themselves or we can include them after the end of code on a line. How you use and layout you comments is for you but they should be aimed to help you read and understand the code you have written, especially if you, or someone else needs to understand it some time later. Don’t put in unnecessary comments that do nothing to help understand the code. For example,</p>
+<p><em>n=10 # set n equal to 10</em></p>
+<p>does not really tell us anything new!</p>
+<p>The first thing we did was to write a python function that evaluates our function at the point <span class="math notranslate nohighlight">\(x\)</span>. Note, by defining a function, it is much easier to evaluate a different integral by changing the definition here.</p>
+<p>The next lines set the limits we have required for the integration, the number of columns we are going to use to approximate the integral and the width of each column ($\Delta x). Note we have written n = 10, with no decimal point - why is this important? Try running the code with <em>n=10.0</em>.</p>
+<p>As we are going to store the answer in the variable <em>result</em> it is important to make sure it is zero before we do the evaluation. Forcing it to be zero avoids making any mistake if a value for <em>result</em> has already been calculated somewhere else in the programme. You can see why this is important if you remove or ‘comment out’ the line</p>
+<p><em>result =0</em></p>
+<p>If you then run the code cell again and again you see that the answer continues to change as we are adding to <em>result</em> each time ( as we have stored a value in the variable <em>result</em> the first time we ran it).</p>
+<p>Inspect the <em>for</em> loop carefully. Why did we choose the range from 1 to (n+1)? Make sure you understand why it was done this way in this example. Can you see how the value of the function has been evaluated at the centre of the <span class="math notranslate nohighlight">\(x\)</span> region for each column?</p>
+<p>Finally increase the value of <em>n</em> (to 100, 1000 etc) and see what the effect on your result is? You should see that we get closer and closer to 39 as we <em>n</em> increases. It is tempting to believe that we could keep increasing the number of columns to get a better result (as <em>n</em> increases we appear to converge to a single value - 39). This is tempting, but smarter algorithms might demand less computer time and there is a limit, due to the precision in which the calculation can be done (rounding errors) that means this strategy would eventually fail.</p>
+<p>The code fragment below is identical to the original version above except the ‘for’ loop starts with</p>
+<p><em>for i in range(n)</em></p>
+<p>If we used this line in the code fragment above (rather than <em>for i in range(1,n+1)</em> ) we get the wrong result? Why? If you understand the range function properly you should be able to modify the result line in the code fragment below (where its says # +?) to obtain the same answer (without changing any other line). Try it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A programme to integrate a function, f(x), numerically</span>
+<span class="c1"># Firstly, let&#39;s define the f(x) as a python function.</span>
+<span class="c1">#</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">ans</span><span class="o">=</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># The integration limits are a, b and the region is divided into n columns</span>
+<span class="c1"># the width of each column will be (b-a)/n</span>
+<span class="c1">#</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">2.0</span>
+<span class="n">b</span><span class="o">=</span><span class="mf">5.0</span>
+<span class="n">deltax</span><span class="o">=</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">n</span> <span class="c1"># calculate delta x</span>
+<span class="c1"># </span>
+<span class="c1"># The answer to the integral will be stored in the variable &#39;result&#39;.</span>
+<span class="c1">#</span>
+<span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">result</span><span class="o">=</span><span class="n">result</span> <span class="c1"># +?</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+</pre></div>
+</div>
+</div>
+</div>
+<p>The scientific library <em>scipy</em>, that we will be using later, has a number of simple and advanced routines for doing numerical integration. In practise you will be better off selecting the appropriate routine from this library rather than writing your own integration routine. If you need more than availabe in <em>scipy</em> you will be turning into a numerical specialist.</p>
+<p>To get some idea of what is available uncomment the two lines below and execute the code fragment. You can see how large the help file for the scipy integration routines is! We will look at how to use one of these routines later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#import scipy.integrate as integrate</span>
+<span class="c1">#help(integrate)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="summary">
+<h2>3.3 Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>In this notebook you have:</p>
+<ul class="simple">
+<li><p>learnt how to use the python ‘for’ loop to do execute a series of repetitive steps,</p></li>
+<li><p>learnt about the pitfalls and difficulties in correctly using the python ‘range’ function,</p></li>
+<li><p>learnt how to create and use simple python functions,</p></li>
+<li><p>learnt how to use loops and functions in a python routine to carry out simple numerical intergration.</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">#</a></h1>
+<p>You may wish to do this in code cells in this notebook, or by creating your own notebook.</p>
+<ul class="simple">
+<li><p>Experiment in writing your own functions. For example, see if you can write your own version of the <em>sinh</em> and <em>cosh</em> functions. (you need to use the <em>exp</em> functions from the <em>math</em> package). You can check your functions against the ones in the standard package.</p></li>
+<li><p>With the functions you have defined take the basic integration code and modify it do to definite integrals for your functions. i.e find <span class="math notranslate nohighlight">\(\int_1^3 \sinh(x) dx\)</span> using your function fo <em>sinh</em>.</p></li>
+<li><p>Use a <em>for</em> loop to find the sum of the first <em>n</em> integeters, i.e. <span class="math notranslate nohighlight">\(\sum_{i=1}^n i\)</span>. You can base you code on the code we used to calculate the factorial of a number.  If you are feeling adventurous, modify this to find the sum of the square, or the cubes, of the first <em>n</em> integers.</p></li>
+</ul>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="2_variables_and_methods.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">2. Python - Variables, objects and methods</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="5_numerical_differentiation.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">5 Numerical differentiation  and rounding errors.</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Adrian Barnes and Francesco Turci<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

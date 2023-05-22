@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>6 Controlling programme execution - the ‘if’ statement &#8212; Computing Lab</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7 ‘while’ statements" href="7_while_loops.html" />
+    <link rel="prev" title="5 Numerical differentiation and rounding errors." href="5_numerical_differentiation-original.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Computing Lab</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../landing-page.html">
+                    ComputingLab
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_IntroToNotebooks.html">
+   1. An Introduction to Python and Jupyter notebooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_variables_and_methods.html">
+   2. Python - Variables, objects and methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_functions_and_loops.html">
+   3 Functions and loops with numerical integration as an example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation-original.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   6 Controlling programme execution - the ‘if’ statement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_while_loops.html">
+   7 ‘while’ statements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_Random_numbers.html">
+   8 Random numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_theNumpyLibrary.html">
+   9. Introduction to the Numpy library.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_inputoutput.html">
+   10. Input and output of data from python programmes.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Boltzmann-description.html">
+   PHYS10008 - extended assignment
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/6_branching.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/6_branching.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#if-statements">
+   6.1 ‘if ‘’ statements
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#boolean-expressions">
+     6.1.1 Boolean expressions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#testing-and-combining-boolean-expressions">
+     6.1.2 testing and combining boolean expressions.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-simple-if-statement">
+     6.1.3 the simple ‘if’ statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-if-else-statement">
+     6.1.4 the if … else statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-if-elif-else-statement">
+     6.1.5 the if … elif … else  statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nested-if-statements">
+     6.1.5 nested ‘if’ statements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   6.2 Summary
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>6 Controlling programme execution - the ‘if’ statement</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#if-statements">
+   6.1 ‘if ‘’ statements
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#boolean-expressions">
+     6.1.1 Boolean expressions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#testing-and-combining-boolean-expressions">
+     6.1.2 testing and combining boolean expressions.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-simple-if-statement">
+     6.1.3 the simple ‘if’ statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-if-else-statement">
+     6.1.4 the if … else statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-if-elif-else-statement">
+     6.1.5 the if … elif … else  statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nested-if-statements">
+     6.1.5 nested ‘if’ statements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   6.2 Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="controlling-programme-execution-the-if-statement">
+<h1>6 Controlling programme execution - the ‘if’ statement<a class="headerlink" href="#controlling-programme-execution-the-if-statement" title="Permalink to this headline">#</a></h1>
+<p>In the note books you have used so far you have only seen code that runs smoothly from start to finish. For these you can see, or work out, the exact sequence of instructions that will be carried out once the programme has started to run. However, it is exceedingly common in our numerical methods to control the execution of a programme according to calculations made earlier. In this notebook you will learn how to use to use conditional statements to control the flow of your programme.</p>
+<p>In this notebook you will learn how to:</p>
+<ul class="simple">
+<li><p>use boolean statements to control programme execution,</p></li>
+<li><p>use the if … statement to allow alternative code fragments to be executed according to conditions met,</p></li>
+<li><p>use if … elif … else statements,</p></li>
+<li><p>use nested if statements for more complex programme control.</p></li>
+</ul>
+<section id="if-statements">
+<h2>6.1 ‘if ‘’ statements<a class="headerlink" href="#if-statements" title="Permalink to this headline">#</a></h2>
+<section id="boolean-expressions">
+<h3>6.1.1 Boolean expressions<a class="headerlink" href="#boolean-expressions" title="Permalink to this headline">#</a></h3>
+<p>In python a simple ‘if’ statement has the form</p>
+<p>if <em>boolean expression</em> : <br> <em>indented code</em></p>
+<p>What do we mean by a boolean expression? In boolean algebra a result of a calculation may only have one of two answers: ‘True’ or ‘False’ (Boolean alegbra underpins the logic used in all digital computers). So, simply put, if the result of our boolean expression is ‘True’ the indented code following the <em>if</em> statement is executed, otherwise the statement is ignored and the programme resumes at the next unindented line.</p>
+<p>The code below shows some boolean expressions. Look at carefully and run this code taking care to understand the output of each line. In particular note the form of the boolean operators (i.e. <em>==</em> , <em>!=</em> , <em>&gt;=</em>
+etc)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correct</span><span class="o">=</span><span class="kc">True</span>        <span class="c1"># Define a boolean data type with value True</span>
+<span class="n">incorrect</span><span class="o">=</span><span class="kc">False</span>     <span class="c1"># Define a boolean data type with value  False</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Check boolean data types, &quot;</span><span class="p">,</span><span class="n">correct</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">correct</span><span class="p">),</span><span class="n">incorrect</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">incorrect</span><span class="p">))</span> <span class="c1"># check the data types</span>
+<span class="c1">#</span>
+<span class="c1"># Now lets define some quantities and look a the results of some boolean operators</span>
+<span class="c1">#</span>
+<span class="n">i</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">j</span><span class="o">=-</span><span class="mi">1</span>
+<span class="n">k</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">10.</span>
+<span class="n">b</span><span class="o">=-</span><span class="mf">10.</span>
+<span class="n">yes</span><span class="o">=</span><span class="s2">&quot;Y&quot;</span>
+<span class="n">no</span><span class="o">=</span><span class="s2">&quot;N&quot;</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;result of i == j is&quot;</span><span class="p">,(</span><span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">))</span>                  <span class="c1">## == is boolean &#39;identically equal to&#39;</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;result of i == k is&quot;</span><span class="p">,(</span><span class="n">i</span><span class="o">==</span><span class="n">k</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;result of i != j is&quot;</span><span class="p">,(</span><span class="n">i</span><span class="o">!=</span><span class="n">j</span><span class="p">))</span>                  <span class="c1">## != is boolean &#39;not equal to&#39;</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;result of i != k is&quot;</span><span class="p">,(</span><span class="n">i</span><span class="o">!=</span><span class="n">k</span><span class="p">))</span>                   
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;result of i &gt; k is&quot;</span><span class="p">,(</span><span class="n">i</span><span class="o">&gt;</span><span class="n">k</span><span class="p">))</span>                    <span class="c1">## &gt; is boolean &#39;greater than&#39;</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;result of i &gt;= k is&quot;</span><span class="p">,(</span><span class="n">i</span><span class="o">&gt;=</span><span class="n">k</span><span class="p">))</span>                  <span class="c1">## &gt;= is boolean &#39;greater than or identically equal to&#39;</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;result of i &lt;= k is&quot;</span><span class="p">,(</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">k</span><span class="p">))</span>                  <span class="c1">## &lt;= is boolean &#39; less than or identically equal to&#39;</span>
+<span class="nb">print</span> <span class="p">(</span> <span class="s2">&quot;result of a == b is&quot;</span><span class="p">,(</span><span class="n">a</span><span class="o">==</span><span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span> <span class="s2">&quot;result of a &lt; b is&quot;</span><span class="p">,(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">))</span>                 <span class="c1">## &lt; is boolean &#39;less than&#39;</span>
+<span class="nb">print</span> <span class="p">(</span> <span class="s2">&quot;result of a &gt; b is&quot;</span><span class="p">,(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;&#39;yes = N&#39; is&quot;</span><span class="p">,(</span><span class="n">yes</span><span class="o">==</span><span class="s2">&quot;N&quot;</span><span class="p">))</span>                     <span class="c1">## Note string comparisons are case sensitive </span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;&quot;yes = Y&quot; is &#39;</span><span class="p">,(</span><span class="n">yes</span><span class="o">==</span><span class="s2">&quot;Y&quot;</span><span class="p">))</span>                    <span class="c1">## Note also how we can include quotes in print statements</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Check boolean data types,  True &lt;class &#39;bool&#39;&gt; False &lt;class &#39;bool&#39;&gt;
+result of i == j is False
+result of i == k is True
+result of i != j is True
+result of i != k is False
+result of i &gt; k is False
+result of i &gt;= k is True
+result of i &lt;= k is True
+result of a == b is False
+result of a &lt; b is False
+result of a &gt; b is True
+&#39;yes = N&#39; is False
+&quot;yes = Y&quot; is  True
+</pre></div>
+</div>
+</div>
+</div>
+<p>From the above you should now be able to recognise boolean statements. A particular point to note is the difference between for example ‘&lt;’ and ‘&lt;=’ - check you understand the meaning from the results above.</p>
+<p>Considerable care shoud be taken when using ‘==’, ‘&gt;=’ and ‘&lt;=’. There is no ambiguity when using integer variables, however, these operators, when used with float variables can easily lead to programming errors. See the code snippet below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.2246467991473532e-16
+False
+</pre></div>
+</div>
+</div>
+</div>
+<p>We all know <span class="math notranslate nohighlight">\(\sin(\pi)=0\)</span> so why is the boolean result false? It is rare, in floating point calculations to obtain perfect equivalence between floating point variables. In this case the rounding errors in calculating <span class="math notranslate nohighlight">\(\sin(\pi)\)</span> mean the result is not identically equal to zero.</p>
+<p><strong>WARNING.</strong> Avoid making  ‘identically equal’ equivalence tests with floats. If necessary, convert to integer or use composite boolean statements (see below).</p>
+</section>
+<section id="testing-and-combining-boolean-expressions">
+<h3>6.1.2 testing and combining boolean expressions.<a class="headerlink" href="#testing-and-combining-boolean-expressions" title="Permalink to this headline">#</a></h3>
+<p>We can use boolean algebra (truth tables etc) to build composite tests for our vairables. To compare boolean expressions we can use the <em>and</em>, <em>or</em>, <em>not</em> and <em>^</em> operators.  If we consider two boolean numbers A and B then we can understand these operators as follows:</p>
+<p>The AND operator ( <em>and</em> ) says if both A and B are true then the result is true, else the result is false.</p>
+<p>The OR operator ( <em>or</em> ) says if both A or B, or both are true then the result is true, else the result is false.</p>
+<p>The XOR operator ( <em>^</em> ) says if A or B are different, the result is true, if they are the same the result is false</p>
+<p>The NOT operator ( <em>not</em> ) changes boolean value of a variable to its opposite (i.e. true to false, or false to true.)</p>
+<p>Note also the operator precedence for boolean operators, if in doubt use brackets.</p>
+<p>Look at the code snippet below and confirm you understand the output. (These are effective truth tables)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">=</span><span class="kc">True</span>
+<span class="n">F</span><span class="o">=</span><span class="kc">False</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;T AND F is&quot;</span><span class="p">,(</span><span class="n">T</span> <span class="ow">and</span> <span class="n">F</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;T AND T is&quot;</span><span class="p">,(</span><span class="n">T</span> <span class="ow">and</span> <span class="n">T</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;F AND F is&quot;</span><span class="p">,(</span><span class="n">F</span> <span class="ow">and</span> <span class="n">F</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;T OR F is&quot;</span><span class="p">,(</span><span class="n">T</span> <span class="ow">or</span> <span class="n">F</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;T OR T is&quot;</span><span class="p">,(</span><span class="n">T</span> <span class="ow">or</span> <span class="n">T</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;F OR F is&quot;</span><span class="p">,(</span><span class="n">F</span> <span class="ow">or</span> <span class="n">F</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;T AND (NOT F) is&quot;</span><span class="p">,(</span><span class="n">T</span> <span class="ow">and</span> <span class="ow">not</span><span class="p">(</span><span class="n">F</span><span class="p">)))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;T AND (NOT T) is&quot;</span><span class="p">,(</span><span class="n">T</span> <span class="ow">and</span> <span class="ow">not</span><span class="p">(</span><span class="n">T</span><span class="p">)))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;T OR (NOT F) is&quot;</span><span class="p">,(</span><span class="n">T</span> <span class="ow">or</span> <span class="ow">not</span><span class="p">(</span><span class="n">F</span><span class="p">)))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;T OR (NOT T) is&quot;</span><span class="p">,(</span><span class="n">T</span> <span class="ow">or</span> <span class="ow">not</span><span class="p">(</span><span class="n">T</span><span class="p">)))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;T XOR T is&quot;</span><span class="p">,(</span><span class="n">T</span> <span class="o">^</span> <span class="n">T</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;T XOR F is&quot;</span><span class="p">,(</span><span class="n">T</span> <span class="o">^</span> <span class="n">F</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;F XOR F is&quot;</span><span class="p">,(</span><span class="n">F</span> <span class="o">^</span> <span class="n">F</span><span class="p">))</span>
+       
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T AND F is False
+T AND T is True
+F AND F is False
+T OR F is True
+T OR T is True
+F OR F is False
+T AND (NOT F) is True
+T AND (NOT T) is False
+T OR (NOT F) is True
+T OR (NOT T) is True
+T XOR T is False
+T XOR F is True
+F XOR F is False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-simple-if-statement">
+<h3>6.1.3 the simple ‘if’ statement<a class="headerlink" href="#the-simple-if-statement" title="Permalink to this headline">#</a></h3>
+<p>in 6.1.1 we stated that the ‘if statement has the form,</p>
+<p>if <em>boolean expression</em> : <br> <em>if true execute indented code</em></p>
+<p>Now we know what we mean by a boolean expression we see how the ‘if’ statement works. Simply put, if I carry out a boolean test, then if the result is True I execute the indented code after the if statement, if it is False I ignore it and resume execution after the indented code.</p>
+<p>Look and read carefully the code snippet below and then execute it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">2.0</span>      
+<span class="n">b</span><span class="o">=</span><span class="mf">3.0</span>
+<span class="n">c</span><span class="o">=-</span><span class="mf">3.0</span>
+
+<span class="k">if</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>              <span class="c1">#</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;square root of a*b is &quot;</span><span class="p">,</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">a</span><span class="o">*</span><span class="n">c</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">c</span><span class="p">))</span>    <span class="c1"># as the product a*c is negative this line will not be executed</span>
+    
+<span class="c1">#print(sqrt(a*c))         # the programme will crash with an error oif we don&#39;t do this test.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>square root of a*b is  2.449489742783178
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is an example of a common test we may wish to execute in a programme. Here we want to find the square root of the product of two numbers. However, if the product is a negative number our programme will stop with an error message (uncomment the last statement to see what error is produced). In the example above we can see how we can test for a negative number and allow the programme to continue. Of course, we need to decide what we are going to do if we find a negative number.</p>
+<p>Look and read carefully the code snippet below,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mf">1e-10</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">1.0e-10</span> <span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;value of a was &quot;</span><span class="p">,</span><span class="n">a</span> <span class="p">)</span>
+    <span class="n">a</span><span class="o">=</span><span class="mf">0.0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We have now set the value of a to zero&quot;</span><span class="p">,</span><span class="n">a</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>value of a was  1.2246467991473532e-16
+We have now set the value of a to zero 0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note how this solves our problem in floating point arithmetic to check if our variable is zero (or close enough to zero) to be used further in our calculation.</p>
+<p>Hence, if you know how to do a boolean test you know how to use the ‘if’ statement.</p>
+</section>
+<section id="the-if-else-statement">
+<h3>6.1.4 the if … else statement<a class="headerlink" href="#the-if-else-statement" title="Permalink to this headline">#</a></h3>
+<p>The <em>if</em> statement is all well and good but suppose we wish to execute different bits of code according to whether our boolean expression is true or false. This is easly solved by the extension of the <em>if</em> statement to include an <em>else</em> statement as follows</p>
+<p>if <em>boolean expression</em> :</p>
+<p><em>indented code</em></p>
+<p>else:</p>
+<p><em>indented code</em></p>
+<p>Look at and run the code fragment below to see how this works.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">2.0</span>
+<span class="n">b</span><span class="o">=-</span><span class="mf">3.0</span>
+<span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">b</span>
+<span class="k">if</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">sqrt</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;square root of a*b is&quot;</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I can&#39;t find the square root the negative number&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;End of calculation&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I can&#39;t find the square root the negative number -6.0
+End of calculation
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Hint.</strong> It is very easy to forget the colon on both the <em>if</em> and the <em>else</em> statement. If you have errors when writing your code it is often a good idea to check for this simple omission.</p>
+<p>We can now see that whatever the result of the boolean statement, we can run some code for the case when the statement was true <em>and</em> also when it is false. The programme continues after the indented code after the ‘else’ statement. You might modify the code above to make <em>b</em> positive to see how the execution of the code depends on the sign of <em>c</em>. Note, that there is no boolean statement associated with the <em>else</em> line.</p>
+<p><strong>Note.</strong> Some programmers advocate that, for clarity, an else statement should always be included, even it is followed by a null statement.</p>
+</section>
+<section id="the-if-elif-else-statement">
+<h3>6.1.5 the if … elif … else  statement<a class="headerlink" href="#the-if-elif-else-statement" title="Permalink to this headline">#</a></h3>
+<p>The <em>if</em> statement can be extended by adding further boolean tests with the <em>elif:</em> line. This stands for ‘else if’ and allows you to test sequentially with a series of boolean tests. The <em>elif</em> line must be followed by a boolean statement after which the following indented code is executed if it is true. If it is false the programme moves to the next <em>elif:</em> or final <em>else:</em> line. It is important to realise that once the programme comes to first test with a true answer, then no further tests in the <em>if: - elsif: - else:</em> block are executed.</p>
+<p>Look at carefully run the following code fragment to see how this works</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span><span class="o">=</span><span class="mi">2</span>
+<span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is equal to zero&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">i</span><span class="o">==</span><span class="mi">1</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is equal to one&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">i</span><span class="o">==</span><span class="mi">2</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is equal to two&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">i</span><span class="o">==</span><span class="mi">3</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is equal to three&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is less than 5&quot;</span><span class="p">)</span>  <span class="c1"># note although i is less than 5, this line is not executed as the if block termiated when</span>
+                               <span class="c1"># the condition i==2 was met. </span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;i is greater than three&quot;</span><span class="p">)</span>
+    
+    
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;End of programme&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i is equal to two
+End of programme
+</pre></div>
+</div>
+</div>
+</div>
+<p>Try changing the value of <em>i</em> in the code above and confirm you understand how it works. You can note again that as in the simple <em>if</em> statement it is not necessary for the last statement to be an <em>else:</em> line. However, again for clarity is often recommended that it is included.</p>
+<p>Look carefully and run the code fragment below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is equal to zero&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is less than or equal to 2&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">i</span><span class="o">==</span><span class="mi">1</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is equal to one&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">i</span><span class="o">==</span><span class="mi">3</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is equal to three&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;i is greater than three&quot;</span><span class="p">)</span>
+    
+    
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;End of programme&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i is less than or equal to 2
+End of programme
+</pre></div>
+</div>
+</div>
+</div>
+<p>when you run this code the line print(“i is equal to 1”) is never executed as the if statement has already found the statement i &lt;= 2 is true so that execution moves onto the next executable unindented line.</p>
+</section>
+<section id="nested-if-statements">
+<h3>6.1.5 nested ‘if’ statements<a class="headerlink" href="#nested-if-statements" title="Permalink to this headline">#</a></h3>
+<p>As for the case of for loops it is possible to ‘nest’ if statements.</p>
+<p>Look carefully at and run the code fragment below. Try changing <em>i</em> and <em>j</em> to see how it works.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">j</span><span class="o">=</span><span class="mi">5</span>
+<span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is greater than 0&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;j is greater than 0&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">j</span> <span class="o">&lt;</span><span class="mi">0</span> <span class="p">:</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;j is less than zero&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;j is equal to 0&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;as i was less than or equal to zero I didn&#39;t check j!&quot;</span><span class="p">)</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;programme end&quot;</span><span class="p">)</span>
+        
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i is greater than 0
+j is greater than 0
+programme end
+</pre></div>
+</div>
+</div>
+</div>
+<p>Try different integer values of i and j to see how this works. The same result could have been achieved in a different way. You might like to try a different method. Nevertheless it demonstrates the use of nested if statements.</p>
+</section>
+</section>
+<section id="summary">
+<h2>6.2 Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>In this notebook you have learnt how to:</p>
+<ul class="simple">
+<li><p>construct and use boolean statements that give a result ‘True’ or ‘False’,</p></li>
+<li><p>use boolean statements in an <em>if</em> statement to give conditional branching in your programme,</p></li>
+<li><p>use the <em>else</em> statement to execute code when a true result has not been found in the <em>if</em> statement,</p></li>
+<li><p>use the <em>if: … elif: … else:</em> statement to allow multiple and sequential tests to allow different code to be executed for different cases,</p></li>
+<li><p>use nested of statements for more complex tasks.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="5_numerical_differentiation-original.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">5 Numerical differentiation  and rounding errors.</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="7_while_loops.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">7 ‘while’ statements</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Adrian Barnes and Francesco Turci<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

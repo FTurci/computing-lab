@@ -1,0 +1,754 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Coupled Oscillators - a worked example of the Eigenvalue and Eigenvector analysis when the masses (and springs are unequal). &#8212; Computing Lab</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Computing Lab</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../landing-page.html">
+                    ComputingLab
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_IntroToNotebooks.html">
+   1. An Introduction to Python and Jupyter notebooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_variables_and_methods.html">
+   2. Python - Variables, objects and methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_functions_and_loops.html">
+   3 Functions and loops with numerical integration as an example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation-original.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_branching.html">
+   6 Controlling programme execution - the ‘if’ statement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_while_loops.html">
+   7 ‘while’ statements
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_Random_numbers.html">
+   8 Random numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_theNumpyLibrary.html">
+   9. Introduction to the Numpy library.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_inputoutput.html">
+   10. Input and output of data from python programmes.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Boltzmann-description.html">
+   PHYS10008 - extended assignment
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/Coupled Oscillations - pt2 revised.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/Coupled Oscillations - pt2 revised.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-1-the-formulation-of-the-coupled-oscillator-equations">
+   Step 1 - The formulation of the coupled oscillator equations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#eigenvector-eigenvalue-analysis-when-the-masses-and-springs-are-unequal">
+   Eigenvector/eigenvalue analysis when the masses (and springs are unequal).
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-2-the-trial-solution">
+   Step 2 - The trial solution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-3-finding-the-eigenvalues-and-eigenvectors">
+   Step 3  - Finding the Eigenvalues and Eigenvectors.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise">
+   Exercise
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#practical-example-the-carbon-dioxide-molecule">
+   Practical example - the Carbon Dioxide molecule?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Coupled Oscillators - a worked example of the Eigenvalue and Eigenvector analysis when the masses (and springs are unequal).</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-1-the-formulation-of-the-coupled-oscillator-equations">
+   Step 1 - The formulation of the coupled oscillator equations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#eigenvector-eigenvalue-analysis-when-the-masses-and-springs-are-unequal">
+   Eigenvector/eigenvalue analysis when the masses (and springs are unequal).
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-2-the-trial-solution">
+   Step 2 - The trial solution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-3-finding-the-eigenvalues-and-eigenvectors">
+   Step 3  - Finding the Eigenvalues and Eigenvectors.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise">
+   Exercise
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#practical-example-the-carbon-dioxide-molecule">
+   Practical example - the Carbon Dioxide molecule?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="coupled-oscillators-a-worked-example-of-the-eigenvalue-and-eigenvector-analysis-when-the-masses-and-springs-are-unequal">
+<h1>Coupled Oscillators - a worked example of the Eigenvalue and Eigenvector analysis when the masses (and springs are unequal).<a class="headerlink" href="#coupled-oscillators-a-worked-example-of-the-eigenvalue-and-eigenvector-analysis-when-the-masses-and-springs-are-unequal" title="Permalink to this headline">#</a></h1>
+<section id="step-1-the-formulation-of-the-coupled-oscillator-equations">
+<h2>Step 1 - The formulation of the coupled oscillator equations<a class="headerlink" href="#step-1-the-formulation-of-the-coupled-oscillator-equations" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="eigenvector-eigenvalue-analysis-when-the-masses-and-springs-are-unequal">
+<h2>Eigenvector/eigenvalue analysis when the masses (and springs are unequal).<a class="headerlink" href="#eigenvector-eigenvalue-analysis-when-the-masses-and-springs-are-unequal" title="Permalink to this headline">#</a></h2>
+<p>In the previous notebook we considered linear chains of equal masses connected by springs that could be of equal or unequal strength (different spring constants). We now wish to look at the more general case where the masses may be unequal as well. We will make the same steps in the solution as before. The important point to note at the start is that to use the Eigenvalue/Eigenvector analysis we need to ensure that our matrix is both real and symmetric. When the masses were equal this was always true ( the <span class="math notranslate nohighlight">\(K\)</span> matrix is by definition real and symmetric and remains so with a scalar division by the mass). When the masses are unequal this is no longer the case and we have to employ a mathematical trick to recover the simple eigenvalue equation we wish to solve. The method is explained here.</p>
+<p>In order to solve this problem we need to apply Newtons second law of motion to each of the masses in turn. We should remember that we will specify the coordinate of each mass <span class="math notranslate nohighlight">\(m_1\)</span>, <span class="math notranslate nohighlight">\(m_2\)</span> in terms of their coordinates <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> that are defined as zero when the masses are in their equilibrium positions. Hence we should obtain,</p>
+<p>\begin{equation}
+m_1 \ddot x_1 = -k_1x_1+k_2(x_2-x_1) \
+m_2 \ddot x_2 = -k_3x_2+k_2(x_1 -x_2)
+\end{equation}</p>
+<p>The trickiest part here is getting the signs correct. For the coupling terms (for example the term including <span class="math notranslate nohighlight">\(k_2\)</span>) setting either <span class="math notranslate nohighlight">\(x_1=0\)</span> or <span class="math notranslate nohighlight">\(x_2 = 0\)</span> is often sufficient to check the signs are correct. You should also note by Newton’s third law that the force acting between the masses should be equal and opposite for each one. We can write these equations in matrix form as:</p>
+<p>\begin{equation}
+\left [ \begin{array}{cc} m_1 &amp; 0 \ 0 &amp; m_2 \end{array} \right ]
+\left [ \begin{array}{c} \ddot x_1 \ \ddot x_2 \end{array} \right ]=
+\left [ \begin{array}{cc} -(k_1+k_2) &amp; k_2 \ k_2 &amp; -(k_2 +k_3) \end{array} \right ]
+\left [ \begin{array}{c} x_1 \ x_2 \end{array} \right ]   …. (1)
+\end{equation}</p>
+<p>This is the equation we need to solve. (With the trial solution before without manipulation, it leads to a form of the Generalised Eigenvalue equation.) However, we note we can re-arrange our equations of motion to recover the simple eigenvalue equation we wish to solve.</p>
+</section>
+<section id="step-2-the-trial-solution">
+<h2>Step 2 - The trial solution<a class="headerlink" href="#step-2-the-trial-solution" title="Permalink to this headline">#</a></h2>
+<p>We will use the same trial solution as before.</p>
+<p>\begin{equation}
+\left[ \begin{array}{c} x_1 \x_2 \end{array} \right] = \left[ \begin{array}{c} C_1 \C_2 \end{array} \right] \exp(i\omega t) \space\space … (2)
+\end{equation}</p>
+<p>Hence, using the trial solution on (4) and subsituting into (3) we find</p>
+<p>\begin{equation}
+\omega^2 \left[\begin{array}{cc} m_1 &amp; 0 \ 0 &amp; m_2 \end{array} \right ]\left [ \begin{array}{c} C_1 \ C_2 \end{array} \right ]=-k
+\left [ \begin{array}{cc} 2 &amp; -1 \ -1 &amp; 2 \end{array} \right ]
+\left [ \begin{array}{c} C_1 \ C_2 \end{array} \right ] \space\space … (3)
+\end{equation}.</p>
+<p>In the previous example where <span class="math notranslate nohighlight">\(m_1 =m_2=m\)</span> this naturally led to our eigenvalue equation. However, when <span class="math notranslate nohighlight">\(m_1 \neq m_2\)</span> we see this is  no longer the case. However, there is a trick we may employ  to recover our required form which we follow below. We rewrite (3) as follows:</p>
+<p>\begin{equation}
+\omega ^2 \left [ \begin{array}{cc} \sqrt{m_1} &amp; 0 \ 0 &amp; \sqrt{m_2} \end{array} \right ]
+\left [ \begin{array}{c} \sqrt{m_1} C_1 \ \sqrt{m_2} C_2 \end{array} \right ] =
+\left [ \begin{array}{cc} -(k_1+k_2) &amp; k_2 \ k_2 &amp; -(k_2+k_3) \end{array} \right ]
+\left [ \begin{array}{c} C_1 \ C_2 \end{array} \right ]
+\end{equation}
+or going even further
+\begin{equation}
+\omega ^2 \left [ \begin{array}{cc} \sqrt{m_1} &amp; 0 \ 0 &amp; \sqrt{m_2} \end{array} \right ]
+\left [ \begin{array}{c} \sqrt{m_1} C_1 \ \sqrt{m_2} C_2 \end{array} \right ] =
+\left [ \begin{array}{cc} \frac{-(k_1+k_2)}{\sqrt{m_1}} &amp; \frac{k_2}{\sqrt{m_2}} \ \frac{k_2}{\sqrt{m_1}} &amp; \frac{-(k_2+k_3)}{\sqrt{m_2}} \end{array} \right ]
+\left [ \begin{array}{c} \sqrt{m_1} C_1 \ \sqrt{m_2} C_2 \end{array} \right ]
+\end{equation}
+This looks more complicated but writing <span class="math notranslate nohighlight">\(C_1'= \sqrt{m_1}C_1 \)</span> and <span class="math notranslate nohighlight">\(C_2'= \sqrt{m_2}\)</span> we have</p>
+<p>\begin{equation}
+\omega ^2 \left [ \begin{array}{cc} \sqrt{m_1} &amp; 0 \ 0 &amp; \sqrt{m_2} \end{array} \right ]
+\left [ \begin{array}{c} C_1’ \ C_2’ \end{array} \right ] =
+\left [ \begin{array}{cc} \frac{-(k_1+k_2)}{\sqrt{m_1}} &amp; \frac{k_2}{\sqrt{m_2}} \ \frac{k_2}{\sqrt{m_1}} &amp; \frac{-(k_2+k_3)}{\sqrt{m_2}} \end{array} \right ]
+\left [ \begin{array}{c} C_1’ \ C_2’ \end{array} \right ] \space\space …(4)
+\end{equation}
+Finally we recognise that
+\begin{equation}
+\left [ \begin{array}{cc} \sqrt{m_1} &amp; 0 \ 0 &amp; \sqrt{m_2} \end{array} \right ]^{-1}=
+\left [ \begin{array}{cc} \frac{1}{\sqrt{m_1}} &amp; 0 \ 0 &amp; \frac{1}{\sqrt{m_2}} \end{array} \right ]
+\end{equation}</p>
+<p>so that multiplying the left hand and right hand side of (4) by the inverse mass matrix we get</p>
+<p>\begin{equation}
+\omega ^2
+\left [\begin{array}{c} C_1’ \ C_2’ \end{array} \right ] =
+\left [ \begin{array}{cc} \frac{-(k_1+k_2)}{m_1} &amp; \frac{k_2}{\sqrt{m_1m_2}} \
+\frac{k_2}{\sqrt{m_1m_2}} &amp; \frac{-(k_2+k_3)}{m_2} \end{array} \right ]
+\left [ \begin{array}{c} C_1’ \ C_2’ \end{array} \right ]
+\end{equation}</p>
+<p>We can recognise this again as our eigenvalue equation</p>
+<p>\begin{equation}
+\left (A-\lambda I\right) \vec v=0
+\end{equation}</p>
+<p>for a real and symmetric matrix for which we know that we have real eigenvalues and orthonormal eigenvectors.</p>
+</section>
+<section id="step-3-finding-the-eigenvalues-and-eigenvectors">
+<h2>Step 3  - Finding the Eigenvalues and Eigenvectors.<a class="headerlink" href="#step-3-finding-the-eigenvalues-and-eigenvectors" title="Permalink to this headline">#</a></h2>
+<p>We will now use python, as before, to calculate the eigenvalues and vectors for the matrix. To make things clear for this example we will take <span class="math notranslate nohighlight">\(m_2=4m_1=4m\)</span> and we will take <span class="math notranslate nohighlight">\(k_1=k_2=k_3=k\)</span> but we can substitute any values of <span class="math notranslate nohighlight">\(m\)</span> or <span class="math notranslate nohighlight">\(k\)</span> we wish. Hence we need to find the eigenvalues and vectors of,</p>
+<p>\begin{equation}
+\left [ \begin{array}{cc} 2 &amp; -\frac{1}{2} \ -\frac{1}{2} &amp; \frac{1}{2} \end{array} \right ]
+\end{equation}
+Here is the code we need to do the calculation,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The first part imports the linear algebra library so it recognises the function needed to calculate the eigenvalues and vectors</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">NP</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">LA</span>
+<span class="c1">###</span>
+<span class="c1">### Now we&#39;ll enter the array</span>
+<span class="c1">###</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">NP</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">e_vals</span><span class="p">,</span><span class="n">e_vecs</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvalues&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vals</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvectors&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vecs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 2.  -0.5]
+ [-0.5  0.5]]
+Eigenvalues
+[2.15138782+0.j 0.34861218+0.j]
+Eigenvectors
+[[ 0.95709203  0.28978415]
+ [-0.28978415  0.95709203]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>From the result we see from this case (slightly different to the lecture) we have two eigenvalues. <span class="math notranslate nohighlight">\(\omega^2 =2.15\)</span> and <span class="math notranslate nohighlight">\(\omega^2 =0.349\)</span>. We’ve lost the simple <span class="math notranslate nohighlight">\(\omega =1\)</span> result when the masses were equal.</p>
+<p>The eigenvectors are returned as a matrix of normalised column vectors so the first eigenvector is <span class="math notranslate nohighlight">\(\left [\begin{array}{c} 0.957 \\ -0.290 \end{array}\right ]\)</span> and the second eigenvector is <span class="math notranslate nohighlight">\(\left [\begin{array}{c} 0.290 \\ 0.957 \end{array}\right ]\)</span>.
+We note we still have ‘in phase’ and in ‘anti-phase’ motions but the relative amplitudes of <span class="math notranslate nohighlight">\(C_1'\)</span> and <span class="math notranslate nohighlight">\(C_2'\)</span> have changed. However, the physical amplitudes of the two masses are determined by <span class="math notranslate nohighlight">\(C_1\)</span> and <span class="math notranslate nohighlight">\(C_2\)</span> in our trial solution so to obtain the physical ratio of the amplitudes we need to write <span class="math notranslate nohighlight">\(C_1=\frac{C_1'}{\sqrt{m_1}}\)</span> and <span class="math notranslate nohighlight">\(C_2=\frac{C_2'}{\sqrt{m_2}}\)</span> in our trial solution, hence</p>
+<p>\begin{equation}
+\left[ \begin{array}{c} x_1 \  x_2 \end{array}\right]=
+A\left [\begin{array}{c} 0.957 \ -0.145 \end{array}\right ]\exp(i(1.46t))+
+B\left [\begin{array}{c} 0.145\ 0.957 \end{array}\right ]\exp(i(0.591t))
+\end{equation}</p>
+<p>where <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are constants to be determined from the initial conditions.</p>
+</section>
+<section id="exercise">
+<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">#</a></h2>
+<p>The python code from the example above is copied below. Go back to Step 1 above and find the matrix when you enter different values of <span class="math notranslate nohighlight">\(m_1\)</span> and <span class="math notranslate nohighlight">\(m_2\)</span> while keeping <span class="math notranslate nohighlight">\(k\)</span> constant. Use the code below to calculate the eigenvalues and eigenvectors and try to understand how the nature of the coupled oscillations has changed. The code has been modified to make it easy to change the values of <span class="math notranslate nohighlight">\(m_1\)</span> and <span class="math notranslate nohighlight">\(m_2\)</span>. Look in particular when <span class="math notranslate nohighlight">\(m_1 \simeq m_2\)</span> and <span class="math notranslate nohighlight">\(m_1 &lt;&lt; m_2\)</span>. Try to interpret physically what is going on. What would you expect the limiting values of the eigenvalues and eigenvectors to be?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The first part imports the linear algebra library so it recognises the function needed to calculate the eigenvalues and vectors</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">NP</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">LA</span>
+<span class="c1">###</span>
+<span class="c1">### Enter values into the array below for the equations of motion you have determined.</span>
+<span class="c1">###</span>
+<span class="n">m1</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">m2</span><span class="o">=</span><span class="mi">4</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">NP</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="o">/</span><span class="n">m1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">NP</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m1</span><span class="o">*</span><span class="n">m2</span><span class="p">)],[</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">NP</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m1</span><span class="o">*</span><span class="n">m2</span><span class="p">),</span><span class="mi">2</span><span class="o">/</span><span class="n">m2</span><span class="p">]])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">e_vals</span><span class="p">,</span><span class="n">e_vecs</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvalues&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vals</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvectors&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vecs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 2.  -0.5]
+ [-0.5  0.5]]
+Eigenvalues
+[2.15138782+0.j 0.34861218+0.j]
+Eigenvectors
+[[ 0.95709203  0.28978415]
+ [-0.28978415  0.95709203]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="practical-example-the-carbon-dioxide-molecule">
+<h2>Practical example - the Carbon Dioxide molecule?<a class="headerlink" href="#practical-example-the-carbon-dioxide-molecule" title="Permalink to this headline">#</a></h2>
+<p>If we ignore the quantum nature of the problem we may consider a carbon dioxide molecule as linear (in reality we would also need to consider ‘bending’ modes) and comprising a central carbon atom of mass <span class="math notranslate nohighlight">\(12\)</span> connected to two oxygen atoms of mass <span class="math notranslate nohighlight">\(16\)</span>. We can approximate the interaction between the atoms as spring-like with equal spring constants (<span class="math notranslate nohighlight">\(k\)</span>) on either side.</p>
+<p>The equation of motion for the system may be written as</p>
+<p>\begin{equation}
+m_{O1} \ddot x_{O1} = -k (x_{O1}-x_C) \
+m_C \ddot x_C = k (x_{O1}-x_C)+ k(x_{O2}-x_C) \
+m_{O2} \ddot x_{O2} = -k (x_{O2}-x_C) \
+\end{equation}</p>
+<p>where <span class="math notranslate nohighlight">\(m_C, m_{O1}\)</span> and <span class="math notranslate nohighlight">\(m_{O2}\)</span> are the masses of the carbon and oxygen atoms and <span class="math notranslate nohighlight">\(x_C, x_{O1}\)</span> and <span class="math notranslate nohighlight">\(x_{O2}\)</span> are their coorindates. Using our trial solution as before we obtain,</p>
+<p>\begin{equation}
+-\omega^2 \left [ \begin{array}{ccc} m_{O1} &amp; 0 &amp; 0 \ 0 &amp; m_C &amp; 0 \ 0 &amp; 0 &amp; m_{O2} \end{array} \right ]\left [ \begin{array}{c} C_{O1} \ C_C \ C_{O2} \end{array} \right ] =
+-k \left [\begin{array}{ccc} 1 &amp; -1 &amp; 0 \ -1 &amp; 2 &amp; -1 \ 0 &amp; -1 &amp; 1 \end{array}\right ]
+\left [ \begin{array}{c} C_{O1} \ C_C \ C_{O2} \end{array} \right ]
+\end{equation}.</p>
+<p>As we did in the example above we can manipulate the mass matrix to obtain the following</p>
+<p>\begin{equation}
+-\omega^2 \left [ \begin{array}{ccc} \sqrt{m_{O1}} &amp; 0 &amp; 0 \ 0 &amp; \sqrt{m_C} &amp; 0 \ 0 &amp; 0 &amp; \sqrt{m_{O2}} \end{array} \right ]\left [ \begin{array}{c} \sqrt{m_{O1}} C_{O1} \ \sqrt{m_C} C_C \ \sqrt{m_{O2}} C_{O2} \end{array} \right ] =
+-k \left [\begin{array}{ccc} 1 &amp; -1 &amp; 0 \ -1 &amp; 2 &amp; -1 \ 0 &amp; -1 &amp; 1 \end{array}\right ]
+\left [ \begin{array}{c} C_{O1} \ C_C \ C_{O2} \end{array} \right ]
+\end{equation}.</p>
+<p>After some manipulation this can be expressed as,
+\begin{equation}
+\omega^2 \left [ \begin{array}{c} C_{O1}’ \ C_C’ \ C_{O2}’ \end{array} \right ]=
+k \left [ \begin{array}{ccc} \frac{1}{m_{O1}} &amp; -\frac{1}{\sqrt{m_{O1}m_C}} &amp; 0 \
+-\frac{1}{\sqrt{m_{O1}m_C}} &amp; \frac{2}{m_C} &amp; -\frac{1}{\sqrt{m_C m_{O2}}} \
+0 &amp; -\frac{1}{\sqrt{m_C m_{O2}}} &amp; \frac{1}{m_{O2}}  \end{array} \right ]
+\left [ \begin{array}{c} C_{O1}’ \ C_C’ \ C_{O2}’ \end{array} \right ]
+\end{equation}</p>
+<p>which we see is again a real and symmetric matrix for which the eigenvalues are real and the eigenvectors orthonormal.</p>
+<p>So let’s take <span class="math notranslate nohighlight">\(k=1\)</span> and let <span class="math notranslate nohighlight">\(m_C=12\)</span> and <span class="math notranslate nohighlight">\(m_{O1} = m_{O2} = 16\)</span>. The eigenvalues and vectors for these values are generated in the python code below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The first part imports the linear algebra library so it recognises the function needed to calculate the eigenvalues and vectors</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">NP</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">LA</span>
+<span class="n">m_O1</span><span class="o">=</span><span class="mi">16</span>
+<span class="n">m_C</span><span class="o">=</span><span class="mi">12</span>
+<span class="n">m_O2</span><span class="o">=</span><span class="mi">16</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">NP</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="o">/</span><span class="n">m_O1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">NP</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m_O1</span><span class="o">*</span><span class="n">m_C</span><span class="p">),</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">NP</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m_O1</span><span class="o">*</span><span class="n">m_C</span><span class="p">),</span><span class="mi">2</span><span class="o">/</span><span class="n">m_C</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">NP</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m_O2</span><span class="o">*</span><span class="n">m_C</span><span class="p">)],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">NP</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m_O2</span><span class="o">*</span><span class="n">m_C</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">m_O2</span><span class="p">]</span>
+             <span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">e_vals</span><span class="p">,</span><span class="n">e_vecs</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvalues&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vals</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvectors&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vecs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0.0625     -0.07216878  0.        ]
+ [-0.07216878  0.16666667 -0.07216878]
+ [ 0.         -0.07216878  0.0625    ]]
+Eigenvalues
+[ 2.29166667e-01+0.j  6.25000000e-02+0.j -1.29611271e-17+0.j]
+Eigenvectors
+[[-3.69274473e-01 -7.07106781e-01  6.03022689e-01]
+ [ 8.52802865e-01 -1.07278096e-16  5.22232968e-01]
+ [-3.69274473e-01  7.07106781e-01  6.03022689e-01]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Firstly we note, that within the numerical errors the third eigenvalue reported is zero. This is as we would expect - it corresponds to a linear translation of the centre of mass of the molecule. Remember that the eigenvectors refer to <span class="math notranslate nohighlight">\(C'\)</span> values. Calculate the corresponding values for the <span class="math notranslate nohighlight">\(C\)</span> terms. What do you notice happens to the third eigenvector? For the first eigenvalue we see that two oxygen atoms are moving with the same amplitude but in the opposite direction to the central carbon atom and we have <span class="math notranslate nohighlight">\(\omega^2 = 0.229, \omega =0.48\)</span>. For the second eigenvalue, we see that the carbon atom (to within numerical error) is stationary and the oxygen atoms oscillate around it with a frequency <span class="math notranslate nohighlight">\(\omega^2 = 0.0626, \omega =0.25\)</span> with equal and opposite amplitudes.  The first two eigenvectors are the asymmetric and symmetric (breathing) modes of vibration for the molecule. Without calculation can you see why the frequency of the breathing mode is <span class="math notranslate nohighlight">\(\omega = 0.25\)</span>?</p>
+<p>You may like to check that the eigenvectors above and the ones you calculate below are orthonormal (<span class="math notranslate nohighlight">\(\vec a. \vec b= 0\)</span>).</p>
+<p>Careful spectroscopic measurements might reveal other frequencies to these due to isotopic variations in the Carbon (<span class="math notranslate nohighlight">\(^{13}C\)</span> has 1 % abundance) and Oxygen (<span class="math notranslate nohighlight">\(^{18}O\)</span> has 0.2% abundance) atoms.</p>
+<p>The python code above is copied below. By changing the masses, use this to calculate the eigenvalues and eigenvectors for the following molecules:</p>
+<p><span class="math notranslate nohighlight">\(^{16}O-^{12}C-^{18}O\)</span></p>
+<p><span class="math notranslate nohighlight">\(^{18}O-^{12}C-^{18}O\)</span></p>
+<p><span class="math notranslate nohighlight">\(^{16}O-^{13}C-^{16}O\)</span></p>
+<p><span class="math notranslate nohighlight">\(^{16}O-^{13}C-^{18}O\)</span></p>
+<p><span class="math notranslate nohighlight">\(^{18}O-^{13}C-^{18}O\)</span></p>
+<p>Try to intrepret what this means in terms of the eigenvalues and eigenvectors you obtain. What happens when the three masses are all different? Can you understand what is happening to the third eigenvector and how it can be reconciled to be equivalent to the translation of the whole molecule?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The first part imports the linear algebra library so it recognises the function needed to calculate the eigenvalues and vectors</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">NP</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">LA</span>
+<span class="n">m_O1</span><span class="o">=</span><span class="mi">18</span>
+<span class="n">m_C</span><span class="o">=</span><span class="mi">12</span>
+<span class="n">m_O2</span><span class="o">=</span><span class="mi">16</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">NP</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="o">/</span><span class="n">m_O1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">NP</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m_O1</span><span class="o">*</span><span class="n">m_C</span><span class="p">),</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">NP</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m_O1</span><span class="o">*</span><span class="n">m_C</span><span class="p">),</span><span class="mi">2</span><span class="o">/</span><span class="n">m_C</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">NP</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m_O2</span><span class="o">*</span><span class="n">m_C</span><span class="p">)],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">NP</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m_O2</span><span class="o">*</span><span class="n">m_C</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">m_O2</span><span class="p">]</span>
+             <span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">e_vals</span><span class="p">,</span><span class="n">e_vecs</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvalues&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vals</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Eigenvectors&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_vecs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0.05555556 -0.06804138  0.        ]
+ [-0.06804138  0.16666667 -0.07216878]
+ [ 0.         -0.07216878  0.0625    ]]
+Eigenvalues
+[ 2.25766751e-01+0.j  5.89554712e-02+0.j -2.95187402e-18+0.j]
+Eigenvectors
+[[-0.3433881  -0.70055711  0.62554324]
+ [ 0.85901399  0.03500568  0.51075392]
+ [-0.37970986  0.71273721  0.58976782]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>Hopefully with these examples you can see how the effect of different masses changes our eigenvalues and eigenvectors. We have not considered the case of varying <span class="math notranslate nohighlight">\(k\)</span> but if you allow for different <span class="math notranslate nohighlight">\(k\)</span>s it is easy to see that the <span class="math notranslate nohighlight">\(K\)</span> matrix is always symmetrical and this technique still works. The problem with varying masses is that simple manipulation leads to an asymmetric matrix for which the eigenvalues may not necessarily be real and for which the eigenvectors are not orthonormal. The manipulation we used to mass weight the coefficients <span class="math notranslate nohighlight">\(C\)</span> in our initial solution to get the <span class="math notranslate nohighlight">\(C'\)</span> values is a standard method in thess problems and allows us to recover the symmetric matrix we need to solve our problem. Different <span class="math notranslate nohighlight">\(k\)</span>s would be the case with different bonds in our molecule. You may wish to try varying <span class="math notranslate nohighlight">\(k\)</span> as well in the case of our triatomic molecule. A chemical example might be hydrogen cyanide (H-C-N). Why not give it a try with <span class="math notranslate nohighlight">\(m_H = 1,2\)</span>, <span class="math notranslate nohighlight">\(m_C=12,13\)</span> and <span class="math notranslate nohighlight">\(m_N=14,15\)</span> and varying the relative strength of the H-C bond and the C-N triple bond.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Adrian Barnes and Francesco Turci<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

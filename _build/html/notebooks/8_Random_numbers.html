@@ -1,0 +1,845 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>8 Random numbers &#8212; Computing Lab</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. Introduction to the Numpy library." href="9_theNumpyLibrary.html" />
+    <link rel="prev" title="7 ‘while’ statements" href="7_while_loops.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Computing Lab</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../landing-page.html">
+                    ComputingLab
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_IntroToNotebooks.html">
+   1. An Introduction to Python and Jupyter notebooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_variables_and_methods.html">
+   2. Python - Variables, objects and methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_functions_and_loops.html">
+   3 Functions and loops with numerical integration as an example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_numerical_differentiation-original.html">
+   5 Numerical differentiation  and rounding errors.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_branching.html">
+   6 Controlling programme execution - the ‘if’ statement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_while_loops.html">
+   7 ‘while’ statements
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   8 Random numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_theNumpyLibrary.html">
+   9. Introduction to the Numpy library.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_inputoutput.html">
+   10. Input and output of data from python programmes.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Boltzmann-description.html">
+   PHYS10008 - extended assignment
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/8_Random_numbers.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/8_Random_numbers.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   8 Random numbers
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-python-random-number-generators">
+     8.1 the python random number generators
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#random-generating-random-floating-point-numbers-between-0-and-1">
+       8.1.1 random() - generating random floating point numbers between 0 and 1
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#random-integer-generation">
+       8.1.2 random integer generation
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#random-float-generation">
+       8.1.3 random float generation
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#random-sampling-from-lists">
+       8.1.4 random sampling from lists
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-programme-using-random-numbers">
+     8.2 Example programme using random numbers.
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-2d-random-walk">
+     8.2.1 The 2D random walk
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercises-on-the-2d-random-walk">
+     8.2.2 Exercises on the 2D random walk.
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random-walks-summary">
+     8.2.3 Random walks - summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   8.3  Summary
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>8 Random numbers</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   8 Random numbers
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-python-random-number-generators">
+     8.1 the python random number generators
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#random-generating-random-floating-point-numbers-between-0-and-1">
+       8.1.1 random() - generating random floating point numbers between 0 and 1
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#random-integer-generation">
+       8.1.2 random integer generation
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#random-float-generation">
+       8.1.3 random float generation
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#random-sampling-from-lists">
+       8.1.4 random sampling from lists
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-programme-using-random-numbers">
+     8.2 Example programme using random numbers.
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-2d-random-walk">
+     8.2.1 The 2D random walk
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercises-on-the-2d-random-walk">
+     8.2.2 Exercises on the 2D random walk.
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random-walks-summary">
+     8.2.3 Random walks - summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   8.3  Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="random-numbers">
+<h1>8 Random numbers<a class="headerlink" href="#random-numbers" title="Permalink to this headline">#</a></h1>
+<p>Many physical processes cannot be modelled purely by starting from a known set of initial conditions (for example, calculating the trajectory of a ball given its initial position and speed). Indeed our understanding of thermodynamics as ‘statistical physics’ implies we do not know, for example, the exact position and speed of the atoms in gas at a particular time <span class="math notranslate nohighlight">\(t\)</span>. So how might we model the behaviour of the atoms in a gas numerically? We do not have the time in this unit to describe the details of how me might do this but the essence is we need to set the starting conditions of our model from statistical distributions that we generate with random numbers. Hence random number generators are important functions that we often need to use for numerical modelling. As you may well realise, random generators are also used extensivley in computer games, they would be boring if they were too predictable.</p>
+<p>There are many ways that you might concieve for producing random numbers in a computer programme. However, it can be surprisingly difficult to do this well and many of the early computer implementations of random number generators were found not to produce truly random numbers at all, even if the repeat period was very long.</p>
+<p>This said the random number generator in python is very good and more than satisfactory for our purposes.</p>
+<p>In this notebook you will learn:</p>
+<ul class="simple">
+<li><p>how to use the ‘random’ package in python,</p></li>
+<li><p>about the different random number function generators available</p></li>
+<li><p>use the random number to demonstrate a simple modelling method - the 2D random walk.</p></li>
+</ul>
+<section id="the-python-random-number-generators">
+<h2>8.1 the python random number generators<a class="headerlink" href="#the-python-random-number-generators" title="Permalink to this headline">#</a></h2>
+<p>In order to use the random number generator you need to import the random number generator package into your program.</p>
+<section id="random-generating-random-floating-point-numbers-between-0-and-1">
+<h3>8.1.1 random() - generating random floating point numbers between 0 and 1<a class="headerlink" href="#random-generating-random-floating-point-numbers-between-0-and-1" title="Permalink to this headline">#</a></h3>
+<p>Run the code fragment below several times and look at the output</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">ran</span>
+<span class="c1">#dir(random)       #uncomment this line if you wish to look at the attributes of random package</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ran</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3104567536492142
+0.5340623800819683
+0.81185258543668
+0.9136302386086229
+0.14639419148802768
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note how the numbers are always between 0 and 1 and that they change each time the code is run. Now look at the code below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">ran</span>
+<span class="n">ran</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ran</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.32383276483316237
+0.15084917392450192
+0.6509344730398537
+0.07243628666754276
+0.5358820043066892
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this case you may note that we have fixed  our own ‘seed’ point for the random generator, rather than python finding its own, random seed. Look how the same sequence of numbers is produced! Change the value of the seed and see what happens. You should not need to seed your random generator but occasionally, for example, when debugging, it can be useful to generate the same sequence of random numbers.</p>
+<p>In the <em>random</em> package there are functions for generating random integers, floats and sampling lists We will look briefly at them here.</p>
+</section>
+<section id="random-integer-generation">
+<h3>8.1.2 random integer generation<a class="headerlink" href="#random-integer-generation" title="Permalink to this headline">#</a></h3>
+<p>Look carefully at and run the following code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A random integer in the range 0 to 4         :&quot;</span><span class="p">,</span><span class="n">ran</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A random integer in the range 2 to 9         :&quot;</span><span class="p">,</span><span class="n">ran</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A random even integer in the range 2 to 8    :&quot;</span><span class="p">,</span><span class="n">ran</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A random integer in the range 5 to 10        :&quot;</span><span class="p">,</span><span class="n">ran</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A random integer in the range 0 to 4         : 2
+A random integer in the range 2 to 9         : 2
+A random even integer in the range 2 to 8    : 4
+A random integer in the range 5 to 10        : 5
+</pre></div>
+</div>
+</div>
+</div>
+<p>The ‘randrange’ function generatres a random integer in the range specified. The range of integer numbers from which the random number may be elected follows the same rule as the basic ‘range’ function in python.</p>
+<p><strong>Hint.</strong> Remember that <em>range(n)</em> gives n integers in the range 0 to n-1 <em>and</em> not 1 to n.</p>
+<p>The ‘randint’ function, while less versatile, makes it easier to use as randint(n,m) includes the numbers n and m in the possible range of integers that can be generated. It is equivalent to radrange(n,m+1).</p>
+<p>Here’s an example of a programme that we could use as ‘double dice’ when playing board games. How long does it take you to throw a double six?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A short programme to generate the throw of two dice for a board game</span>
+<span class="c1">#</span>
+<span class="n">dice1</span><span class="o">=</span><span class="n">ran</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">dice2</span><span class="o">=</span><span class="n">ran</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;you have thrown  &quot;</span><span class="p">,</span><span class="n">dice1</span><span class="p">,</span><span class="s2">&quot; and &quot;</span><span class="p">,</span><span class="n">dice2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>you have thrown   1  and  4
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="random-float-generation">
+<h3>8.1.3 random float generation<a class="headerlink" href="#random-float-generation" title="Permalink to this headline">#</a></h3>
+<p>Look carefully at and run the following code. Rerun it several times to observe how the numbers changed</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ran</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span><span class="mf">10.3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ran</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7.507226326579646
+10.074203657030681
+</pre></div>
+</div>
+</div>
+</div>
+<p>The uniform function generates a floating point random number between the two numbers in the range (n,m) whereas the gauss function generates a random number with probability according to a gaussian distribution (<span class="math notranslate nohighlight">\(\mu,\sigma\)</span>) where <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation.</p>
+<p>We can use the matplotlib library to plot out random numbers in terms of a histogram. The programme code below generates random numbers for either the gaussian or uniform distribution. Uncomment the appropriate line to plot the distribution you want. You can also change the number of points, and the range (or mean and standard deviation). Note, how for a large number of numbers the shape of the distribution becomes clearer. Apart from plotting the histogram you should be familiar with rest of the python code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">npts</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">mu</span><span class="o">=</span><span class="mf">10.0</span>
+<span class="n">sig</span><span class="o">=</span><span class="mf">1.8</span>
+<span class="n">nbins</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">fln</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">npts</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">npts</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">fln</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ran</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span><span class="n">sig</span><span class="p">)</span>
+<span class="c1">#    fln[i] =ran.uniform(mu-5*sig,mu+5*sig) #uncomment appropriate line to select gaussian or uniform distribution</span>
+
+<span class="c1">#</span>
+<span class="c1"># As you become more experienced in python you find you can write code in more compact form. For example, the </span>
+<span class="c1"># for loop above could be written in a single line as show below. Uncomment this line if you wish to check.</span>
+<span class="c1">#    </span>
+<span class="c1"># fln = [ran.gauss(mu, sig) for i in range(npts-1)]</span>
+
+    
+<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">sig</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="n">mu</span><span class="p">,</span><span class="n">sig</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="n">mu</span><span class="p">,</span><span class="n">nbins</span><span class="p">)</span>  <span class="c1"># plot over the 5 sigma range about the mean mu.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">fln</span><span class="p">,</span><span class="n">bins</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8_Random_numbers_11_0.png" src="../_images/8_Random_numbers_11_0.png" />
+</div>
+</div>
+</section>
+<section id="random-sampling-from-lists">
+<h3>8.1.4 random sampling from lists<a class="headerlink" href="#random-sampling-from-lists" title="Permalink to this headline">#</a></h3>
+<p>If we have a python list there are several ways of using the random package by which we can sample from or shuffle the list. We will quickly have a look at the ‘choice’,’choices’, ‘sample’ and ‘shuffle’ functions by imagining a small pack of cards with all Jacks.</p>
+<p>Look at carefully and run the following programme noting the output changes each time you run it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">ran</span>
+<span class="n">cards</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Jack Hearts&quot;</span><span class="p">,</span> <span class="s2">&quot;Jack Spades&quot;</span><span class="p">,</span> <span class="s2">&quot;Jack Diamonds&quot;</span><span class="p">,</span> <span class="s2">&quot;Jack Clubs&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The cards are               :&quot;</span><span class="p">,</span><span class="n">cards</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A random choice of card is  :&quot;</span><span class="p">,</span> <span class="n">ran</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">cards</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pick a random card 5 times replacing each time:&quot;</span><span class="p">,</span><span class="n">ran</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">cards</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ran</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">cards</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The shuffled cards are      :&quot;</span><span class="p">,</span><span class="n">cards</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pick 3 cards without replacing&quot;</span><span class="p">,</span><span class="n">ran</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">cards</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The cards are               : [&#39;Jack Hearts&#39;, &#39;Jack Spades&#39;, &#39;Jack Diamonds&#39;, &#39;Jack Clubs&#39;]
+A random choice of card is  : Jack Spades
+Pick a random card 5 times replacing each time: [&#39;Jack Diamonds&#39;, &#39;Jack Diamonds&#39;, &#39;Jack Diamonds&#39;, &#39;Jack Diamonds&#39;, &#39;Jack Hearts&#39;]
+The shuffled cards are      : [&#39;Jack Hearts&#39;, &#39;Jack Diamonds&#39;, &#39;Jack Spades&#39;, &#39;Jack Clubs&#39;]
+Pick 3 cards without replacing [&#39;Jack Clubs&#39;, &#39;Jack Hearts&#39;, &#39;Jack Diamonds&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>From this code we can see that the :</p>
+<p>‘choice’ functon selects a random item from the list,</p>
+<p>‘choices’ function selects a random item ‘k’ times from the list, allowing the same item to be selected multiple times,</p>
+<p>‘sample’ function selects a random item ‘k’ times from the list. Each item can only be selected once. (so k can never be more than the number of items in the list’.</p>
+<p>‘shuffle’ function shuffles the order of the items in the list</p>
+</section>
+</section>
+<section id="example-programme-using-random-numbers">
+<h2>8.2 Example programme using random numbers.<a class="headerlink" href="#example-programme-using-random-numbers" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="the-2d-random-walk">
+<h2>8.2.1 The 2D random walk<a class="headerlink" href="#the-2d-random-walk" title="Permalink to this headline">#</a></h2>
+<p>A very simple computer simulation that you can do is the 2D random walk which comprises taking equal steps in random directions one after the other. The best way to describe the walk is a phasor of the form,</p>
+<p><span class="math notranslate nohighlight">\(z_N = \sum_{j=1}^N r_{step}\exp(i\theta_j)\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(z_N\)</span> is the final position, in phasor form, of the particle after <span class="math notranslate nohighlight">\(N\)</span> steps and <span class="math notranslate nohighlight">\(\theta_i\)</span> is a random direction in the interval <span class="math notranslate nohighlight">\(0 \le \theta \lt2\pi\)</span>.</p>
+<p>You can use the the <em>uniform</em> function from the <em>random</em> package to generate these random directions and hence to plot the trajectories for a random series of particles.</p>
+<p>The code below generates and plots a random walk of <em>nsteps</em> unit steps as well as printing out the final distance travelled from origin. Run the code a few times noting how the trajectory changes and see how the final distance travelled changes each time. You may change the size of <em>nsteps</em> to simulate longer walks but note how the time it takes to execute the programme increases.</p>
+<p>You might note how some paths are fairly compact, while others are quite ‘stringy’. This is typical of this kind of random walk.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">nsteps</span><span class="o">=</span><span class="mi">10000</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.0</span>
+<span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.0</span>
+<span class="n">step</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">nsteps</span><span class="p">):</span>
+    <span class="n">theta</span><span class="o">=</span><span class="n">ran</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">step</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">step</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;distance travelled is&quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">nsteps</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="p">[</span><span class="n">nsteps</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>   
+<span class="n">limit</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="n">limit</span><span class="p">,</span><span class="n">limit</span><span class="p">,</span><span class="o">-</span><span class="n">limit</span><span class="p">,</span><span class="n">limit</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>distance travelled is 78.07353227170641
+</pre></div>
+</div>
+<img alt="../_images/8_Random_numbers_16_1.png" src="../_images/8_Random_numbers_16_1.png" />
+</div>
+</div>
+<p>The code above is interesting and allows us to picture the random walk but it in practice we don’t want to know about individual trajectories but the average behaviour of a random particle. Hence we need to take samples of many trajectories to work out this average behaviour. This is the principle of Monte Carlo simulations that make heavy use of these random sampling methods.</p>
+<p>If we work carefully through the maths (look it up) of the 2D random walk we find the well known theoretical result that the root mean square distance travelled by a particle after <span class="math notranslate nohighlight">\(N\)</span> steps is</p>
+<p><span class="math notranslate nohighlight">\(D_{rms}=\sqrt{r_{step}N}\)</span>.</p>
+<p>This is something we can test with a programme by finding the average distance travelled by our particles in a simulation of many particle trajectories.</p>
+<p>In the code below, to make things clearer, we have defined a <em>ranwalk</em> function  that calculates a final position for a particle after <em>nsteps</em> with a step size of <em>step</em>. For convenience, the rest of the programme uses a step length of <span class="math notranslate nohighlight">\(1\)</span>. Note also that we are not trying to store the trajectory - only the final distance travelled. This avoids unnecessary use of the computer memory.</p>
+<p>In order to test the theory we need to make sure that we do the averaging properly. So, in this case we need to find the mean (e.g. average) of <span class="math notranslate nohighlight">\(D^2\)</span> for the trajectories before we take the square root.</p>
+<p>Run the code for different values of <em>nsteps</em> and <em>ntries</em>. Note how the execution time will go up as <em>nsteps</em> x <em>ntries</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">ran</span>
+
+<span class="k">def</span> <span class="nf">ranwalk</span><span class="p">(</span><span class="n">nsteps</span><span class="p">,</span><span class="n">step</span><span class="p">):</span>
+    <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span>
+    <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsteps</span><span class="p">):</span>
+        <span class="n">theta</span><span class="o">=</span><span class="n">ran</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">+</span><span class="n">step</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">step</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">nsteps</span><span class="o">=</span><span class="mi">1000</span>
+<span class="n">ntries</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">step</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="n">avdist</span><span class="o">=</span><span class="mf">0.0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ntries</span><span class="p">):</span>
+    <span class="n">avdist</span><span class="o">=</span><span class="n">avdist</span><span class="o">+</span><span class="n">ranwalk</span><span class="p">(</span><span class="n">nsteps</span><span class="p">,</span><span class="n">step</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">avdist</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">avdist</span><span class="p">)</span><span class="o">/</span><span class="n">ntries</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Predicted RMS distance travelled       =&quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">nsteps</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;RMS distance travelled from simulation =&quot;</span><span class="p">,</span><span class="n">avdist</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted RMS distance travelled       = 31.622776601683793
+RMS distance travelled from simulation = 31.65319794217165
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercises-on-the-2d-random-walk">
+<h2>8.2.2 Exercises on the 2D random walk.<a class="headerlink" href="#exercises-on-the-2d-random-walk" title="Permalink to this headline">#</a></h2>
+<p><strong>Exercise 1</strong></p>
+<p>Take the <em>ranwalk</em> function defined above (or write your own) and write a programme that generates <span class="math notranslate nohighlight">\(D_{RMS}\)</span> averaged over <span class="math notranslate nohighlight">\(N_{tries}\)</span> for different values of <span class="math notranslate nohighlight">\(N_{steps}\)</span> (say ten different values between <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(10000\)</span> steps). Store the different values of <span class="math notranslate nohighlight">\(D_{RMS}\)</span> you obtain in a list and then plot <span class="math notranslate nohighlight">\(D_{RMS}\)</span> vs <span class="math notranslate nohighlight">\(\sqrt{N_{steps}}\)</span>. Do this for different values of <span class="math notranslate nohighlight">\(N_{tries}\)</span> and note how the scatter of the data points reduces as <span class="math notranslate nohighlight">\(N_{tries}\)</span> increases. If  your programme is working properly you should find, for large <span class="math notranslate nohighlight">\(N_{tries}\)</span>, that you converge towards a straight line.</p>
+<p>The time it takes the programme to run will be of the order <span class="math notranslate nohighlight">\(N_{tries}\times N_{steps}\times {N_{samples}}\)</span> where <span class="math notranslate nohighlight">\(N_{samples}\)</span> is the number of the different values of <span class="math notranslate nohighlight">\(N_{steps}\)</span> you chose. This is a practical consideration you will encounter with numerical modelling. In order to obtain higher precision and accuracy we often need to increase the number of samples, the number of steps, etc. that we use in the calculation. Inevitably, you will start to see that your proegramme takes longer and longer to complete as you increase these values. So, when testing start with relatively small values of <span class="math notranslate nohighlight">\(N_{steps}, N_{tries}\)</span> and <span class="math notranslate nohighlight">\(N_{samples}\)</span> and then increase them when you are convinced your programme is working properly. When you start to see the programme taking a significant time, say 5-10 seconds, to complete, you can than anticipate how long you will need for increasing values of <span class="math notranslate nohighlight">\(N_{steps}, N_{tries}\)</span> and <span class="math notranslate nohighlight">\(N_{samples}\)</span>.</p>
+<p><strong>Tips for the future.</strong></p>
+<p>For programmes like these, people will often print out something while it is running, for example, each time it starts on a new value of <span class="math notranslate nohighlight">\(N_{steps}\)</span>. At least you then know it is doing something.</p>
+<p>There are python functions that you can call to tell you how much computer time (CPU time) and how much real time a programme took to run. Using these will give you a more accurate indication of how much time your programme will need to complete. We don’t have time to discuss them here.</p>
+<p>Sometimes computers will crash and for long programmes (those that take days to complete!) this can mean an expensive loss of data. So, if you are writing programmes like these it is good idea to save the data to a file periodically so you can pick up where you left off if necessary. We will discuss reading and writing data from/to files later.</p>
+<p><strong>Exercise 2</strong></p>
+<p>Hopefully, the result you found in Exercise 1 agrees with the theoretical prediction. However, in some circumstances we may wish to find answers for which there are no analytical results. An example would be our random walk when there is barrier or wall through which the particle can’t pass.</p>
+<p>In this exercise consider the case where the particle is constrained to lie in a circular enclosure of radius <span class="math notranslate nohighlight">\(R=10\)</span> and we have unit step length in the random walk. At each iteration of the walk only make the step if the particle remains in the enclosure (i.e. <span class="math notranslate nohighlight">\(R \le 10\)</span>). If it can’t move, count this as a step and try again until you reach the limit <span class="math notranslate nohighlight">\(N_{tries}\)</span>. Repeat this, as you did in exercise 1, and plot <span class="math notranslate nohighlight">\(D_{RMS}\)</span> vs. <span class="math notranslate nohighlight">\(\sqrt{N_{steps}}\)</span> and compare with the results you obtained in exercise 1.</p>
+<p><strong>Exercise 3</strong></p>
+<p>Now consider the circular enclosure in Exercise 2 but this time make a hole in the wall (say <span class="math notranslate nohighlight">\(0 \le \theta \le 0.05\)</span>). Modify your programme so that you can detect and find when the particle escapes the enclosure and hence find the mean number steps (time) it takes for a particle to escape. Try this for different holes in the wall. (NB. Although the particle may escape this doesn’t mean it couldn’t randomly reenter the enclosure but this is more and more unlikely the smaller the gap is.</p>
+</section>
+<section id="random-walks-summary">
+<h2>8.2.3 Random walks - summary<a class="headerlink" href="#random-walks-summary" title="Permalink to this headline">#</a></h2>
+<p>In these exercises you have carried out simple simulations of random walks in 2D. The ideas can be extended easily to 3D (or above). Although these models are quite simple the idea of the random walk is commonly used to model nature, for example, the sequencing of DNA, the attachments of molecules to surfaces etc.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="summary">
+<h1>8.3  Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h1>
+<p>In this notebook you have:</p>
+<ul class="simple">
+<li><p>learnt how to use the ‘random’ package in python,</p></li>
+<li><p>about the different random number function generators available</p></li>
+<li><p>used a random number generator to study the 2D random walk.</p></li>
+</ul>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="7_while_loops.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">7 ‘while’ statements</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="9_theNumpyLibrary.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">9. Introduction to the Numpy library.</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Adrian Barnes and Francesco Turci<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
