@@ -1,0 +1,16 @@
+# In _toc.yml
+format: jb-book
+root: landing-page
+chapters:
+ - file: notebooks/1_IntroToNotebooks
+ - file: notebooks/2_variables_and_methods
+ - file: notebooks/3_functions_and_loops
+ - file: notebooks/4_using_lists
+ - file: notebooks/5_numerical_differentiation
+ - file: notebooks/5_numerical_differentiation-original
+ - file: notebooks/6_branching
+ - file: notebooks/7_while_loops
+ - file: notebooks/8_Random_numbers
+ - file: notebooks/9_theNumpyLibrary
+ - file: notebooks/10_inputoutput
+ - file: notebooks/Boltzmann-description
